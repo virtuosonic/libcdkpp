@@ -11,6 +11,8 @@ License:        MIT
 #include <cdk/cdk.h>
 
 #include <memory>
+#include <string_view>
+#include <vector>
 
 namespace cdk {
 
