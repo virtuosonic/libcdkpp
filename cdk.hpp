@@ -36,9 +36,13 @@ std::vector<char*> transformStringList(const StringList &v)
  * Screen object that manages its child widgets.
 */
 class screen {
-    using screenptr = std::unique_ptr<CDKSCREEN,destroyCDKScreen>;
+	struct deleter{
+		void operator ()(CDKSCREEN* p){destroyCDKScreen(p);}
+	};
+
+	using screenptr = std::unique_ptr<CDKSCREEN,deleter>;
     screenptr _ptr;
-    static bool atexit_installed{false};
+	//static bool atexit_installed{false};
     friend class label;
 public:
     /**
@@ -49,12 +53,16 @@ public:
      * install an atexit handler
     */
     screen(WINDOW *cursesWindow){
-        _ptr = initCDKScreen(cursesWindow);
+		_ptr = screenptr(initCDKScreen(cursesWindow));
         initCDKColor();
-        if (!atexit_installed){
-            atexit(endCDK); 
-        }
+		//if (!atexit_installed){
+		    //atexit(endCDK);
+		//}
     }
+	~screen()
+	{
+		endCDK();
+	}
     /**
      * Erase screen.
      * Erases all of the widgets which 
@@ -72,7 +80,7 @@ public:
     void refresh() {
         refreshCDKScreen(_ptr.get());
     }
-}
+};
 
 struct point
 {
@@ -86,13 +94,17 @@ struct drawing_options
 
 struct move_options{
     bool relative{false},refresh{false};
-}
+};
 
 /**
  * A managed curses label widget.
 */
 class label {
-    using labelptr = std::unique_ptr<CDKLABEL,destroyCDKLabel>;
+	struct deleter
+	{
+		void operator()(CDKLABEL* p) {destroyCDKLabel(p);}
+	};
+	using labelptr = std::unique_ptr<CDKLABEL,deleter>;
     labelptr _ptr;
 public:
     /**
@@ -105,22 +117,23 @@ public:
 
     label(screen& parent,point p,StringList message, drawing_options opt)
     {
-        _ptr = newCDKLabel(parent._ptr.get(),
+		auto v = transformStringList(message);
+		_ptr = labelptr(newCDKLabel(parent._ptr.get(),
                     p.x,p.y,
-                    transformStringList(message),
-                    opt.box,opt.shadow);
+		            v.data(),v.size(),
+		            opt.box,opt.shadow));
     }
     /**
      * Draws the label widget on the screen.  If the box parameter is true, the widget is drawn with a box.
     */
-    draw(boolean box=false)
+	void draw(boolean box=false)
     {
-        drawCDKLabel(_ptr.get(),box)
+		drawCDKLabel(_ptr.get(),box);
     }
     /**
      * Removes the widget from the screen.  This does NOT destroy the widget.
     */
-    erase()
+	void erase()
     {
         eraseCDKLabel(_ptr.get());
     }
@@ -143,7 +156,7 @@ public:
         auto msg = getCDKLabelMessage(_ptr.get(),&linesCount);
         for(int i = 0 ; i< linesCount;++i)
         {
-            v.push_back(msg[i]);
+			v.push_back(reinterpret_cast<char*>(msg[i]));
         }
         return v;
     }
@@ -181,7 +194,7 @@ public:
     {
         auto v = transformStringList(message);
         setCDKLabel(_ptr.get(),
-            v.data(),v.size()
+		    v.data(),v.size(),
             box);
     }
     /**
@@ -201,7 +214,7 @@ public:
     */
     void setBackgroundColor(const char * color)
     {
-        setCDKLabelBackgroundColor(_ptr.get(),color)
+		setCDKLabelBackgroundColor(_ptr.get(),color);
     }
     /**
      * Sets whether the widget will be drawn with a box around it.
@@ -236,7 +249,7 @@ public:
     */
     void setLRChar(chtype character)
     {
-        setCDKLabelLRChar(_ptr.get(),character)
+		setCDKLabelLRChar(_ptr.get(),character);
     }
     /**
      * This sets the contents of the label widget.
@@ -276,9 +289,9 @@ public:
     */
     char wait(char key)
     {
-        waitCDKLabel(_ptr.get(),char key);
+		return waitCDKLabel(_ptr.get(),key);
     }
 
-}
+};
 
 }//namespace cdk
