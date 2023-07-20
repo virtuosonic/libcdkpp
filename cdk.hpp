@@ -13,21 +13,22 @@ License:        MIT
 #include <memory>
 #include <string_view>
 #include <vector>
+#include <algorithm>
 
 namespace cdk {
 
 
-auto string2charptr = [](const string_view s)
+auto string2charptr = [](const std::string_view s)
 {
 	return const_cast<char*>(s.data());
 };
 
-using StringList = std::vector<string_view>;
+using StringList = std::vector<std::string_view>;
 
-vector<char*> transformStringList(const StringList &v)
+std::vector<char*> transformStringList(const StringList &v)
 {
-    vector<char*> vc;
-    transform(v.begin(),v.end(),back_inserter(vc),string2charptr);
+    std::vector<char*> vc;
+    std::transform(v.begin(),v.end(),back_inserter(vc),string2charptr);
     return vc;
 }
 
