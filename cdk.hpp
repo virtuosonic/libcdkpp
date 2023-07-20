@@ -32,6 +32,11 @@ std::vector<char*> transformStringList(const StringList &v)
     return vc;
 }
 
+struct widget
+{
+	void* _vptr{nullptr};
+	EObjectType type{vNULL};
+};
 /**
  * Screen object that manages its child widgets.
 */
@@ -80,6 +85,50 @@ public:
     void refresh() {
         refreshCDKScreen(_ptr.get());
     }
+	/**
+	 * @brief lowerObject.
+	 * Has the opposite effect of the raiseCDKObject function call.
+	 * @param w pointer to widget
+	 */
+	void lowerObject(widget* w)
+	{
+		lowerCDKObject(w->type,w->_vptr);
+	}
+	/**
+	 * @brief raiseObject.
+	 * raises the widget to the top of the screen.
+	 * If there are any widgets which overlap the given object
+	 * when a refresh is done, calling this function has the
+	 * effect of raiding the object so no other widgets obstruct it.
+	 * @param w pointer to the object
+	 */
+	void raiseObject(widget* w)
+	{
+		raiseCDKObject(w->type,w->_vptr);
+	}
+	/**
+	 * @brief registerObject.
+	 * Is called automatically when a widget is created.
+	 * If for some reason an object does get unregistered,
+	 * by calling unregisterObject,
+	 * the widget can be registered again by calling this function.
+	 */
+	void registerObject(widget* w)
+	{
+		registerCDKObject(_ptr.get(),w->type,w->_vptr);
+	}
+	/**
+	 * @brief unregisterObject.
+	 * removes  the  widget  from  the screen.
+	 * This does NOT destroy the object,
+	 * it removes the widget from any further
+	 * refreshes by the function refresh.
+	 */
+	void unregisterObject(widget* w)
+	{
+		unregisterCDKObject(w->type,w->_vptr);
+	}
+
 };
 
 struct point
@@ -99,7 +148,8 @@ struct move_options{
 /**
  * A managed curses label widget.
 */
-class label {
+class label :public widget
+{
 	struct deleter
 	{
 		void operator()(CDKLABEL* p) {destroyCDKLabel(p);}
@@ -122,6 +172,7 @@ public:
                     p.x,p.y,
 		            v.data(),v.size(),
 		            opt.box,opt.shadow));
+		_vptr = _ptr.get();
     }
     /**
      * Draws the label widget on the screen.  If the box parameter is true, the widget is drawn with a box.
@@ -291,6 +342,7 @@ public:
     {
 		return waitCDKLabel(_ptr.get(),key);
     }
+	EObjectType type{vLABEL};
 
 };
 
