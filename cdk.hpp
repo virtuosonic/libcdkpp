@@ -14,6 +14,7 @@ License:        MIT
 #include <string_view>
 #include <vector>
 #include <algorithm>
+#include <functional>
 
 namespace cdk {
 
@@ -49,6 +50,7 @@ class screen {
     screenptr _ptr;
 	//static bool atexit_installed{false};
     friend class label;
+	friend class button;
 public:
     /**
      * Constructor.
@@ -141,7 +143,7 @@ struct drawing_options
     bool box{false},shadow{false};
 };
 
-struct move_options{
+struct move_options {
     bool relative{false},refresh{false};
 };
 
@@ -343,6 +345,125 @@ public:
 		return waitCDKLabel(_ptr.get(),key);
     }
 	EObjectType type{vLABEL};
+
+};
+
+class button : public widget
+{
+	struct deleter
+	{
+		void operator()(CDKBUTTON* p) {destroyCDKButton(p);}
+	};
+	using buttonptr = std::unique_ptr<CDKBUTTON,deleter>;
+	buttonptr _ptr;
+public:
+	button() = default;
+	/**
+	 * @brief Creates a new buttonbox widget.
+	 * @param s parent screen
+	 * @param p
+	 * @param message
+	 * @param o
+	 */
+	button(screen& s,point p, std::string_view message,tButtonCallback cb,drawing_options o)
+	{
+		_ptr = buttonptr(newCDKButton(s._ptr.get(),
+		             p.x,p.y,
+		             message.data(),
+		             cb,
+		             o.box,o.shadow));
+		_vptr = _ptr.get();
+	}
+	int activate(chtype * actions)
+	{
+		return activateCDKButton (_ptr.get(),actions);
+	}
+	void draw (bool box)
+	{
+		drawCDKButton (_ptr.get(),box);
+	}
+	void erase()
+	{
+		eraseCDKButton(_ptr.get());
+	}
+	bool getBox()
+	{
+		return getCDKButtonBox (_ptr.get());
+	}
+	std::string_view getMessage()
+	{
+		auto msg = getCDKButtonMessage(_ptr.get());
+		return {reinterpret_cast<char*>(msg)};
+	}
+	int inject(chtype input)
+	{
+		return injectCDKButtonbox (_ptr.get(),input);
+	}
+	void set(std::string_view message,bool box)
+	{
+		setCDKButton(_ptr.get(),message.data(),box);
+	}
+	void setBackgroundAttrib(chtype attribute)
+	{
+		setCDKButtonBackgroundAttrib (_ptr.get(),attribute);
+	}
+	void setBackgroundColor(const char* color )
+	{
+		setCDKButtonBackgroundColor(_ptr.get(),color);
+	}
+	void setBox(bool box)
+	{
+		setCDKButtonBox(_ptr.get(), box);
+	}
+	void setBoxAttribute(chtype c)
+	{
+		setCDKButtonBoxAttribute(_ptr.get(),c);
+	}
+	void setHorizontalChar(chtype c)
+	{
+		setCDKButtonHorizontalChar(_ptr.get(),c);
+	}
+	void setLLChar(chtype c)
+	{
+		setCDKButtonLLChar(_ptr.get(),c);
+	}
+	void setLRChar (chtype c)
+	{
+		setCDKButtonLRChar(_ptr.get(),c);
+	}
+	void setMessage(std::string_view message)
+	{
+		setCDKButtonMessage(_ptr.get(),message.data());
+	}
+	void setULChar(chtype c)
+	{
+		setCDKButtonULChar(_ptr.get(),c);
+	}
+	void setURChar(chtype c)
+	{
+		setCDKButtonURChar(_ptr.get(),c);
+	}
+	void setVerticalChar(chtype c)
+	{
+		setCDKButtonVerticalChar(_ptr.get(),c);
+	}
+	void move(point p,move_options o)
+	{
+		moveCDKButton(_ptr.get(),
+		                p.x,p.y,
+		                o.relative,o.refresh);
+	}
+	void position()
+	{
+		positionCDKButton(_ptr.get());
+	}
+	///man cdk_button(3) documents this function but it
+	/// appears that it doesn't exist
+//	void wait(char key)
+//	{
+//		waitCDKButton(_ptr.get(),key);
+//	}
+	EObjectType type{vBUTTON};
 
 };
 
