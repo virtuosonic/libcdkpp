@@ -361,6 +361,9 @@ public:
 
 };
 
+/**
+ * @brief create and manage a curses button widget.
+ */
 class button : public widget
 {
 	struct deleter
@@ -390,27 +393,75 @@ public:
 									  o.box,o.shadow));
 		_vptr = _ptr.get();
 	}
+	/**
+	 * @brief activates the button widget and lets the user  interact  with  the
+			widget.
+	 * @param actions If  the actions parameter is passed with a non-NULL value, the
+				characters in the array will be injected into the widget.
+	 * @return If  the  character  entered into this widget is RETURN or TAB then
+			this function will return a value from 0 to the number of  buttons
+			-1, representing the button selected.  It will also set the widget
+			data exitType to vNORMAL.
+
+			If the character entered into this widget was ESCAPE then the wid‐
+			get will return a value of -1 and the widget data exitType will be
+			set to vESCAPE_HIT.
+	 */
 	int activate(chtype * actions)
 	{
 		return activateCDKButton (_ptr.get(),actions);
 	}
+	/**
+	 * @brief draws the button widget on the screen.
+	 * @param box If the box parameter is true, the widget is drawn with a box.
+	 */
 	void draw (bool box)
 	{
 		drawCDKButton (_ptr.get(),box);
 	}
+	/**
+	 * @brief erase removes  the  widget  from  the screen.  This does NOT destroy the
+			widget.
+	 */
 	void erase()
 	{
 		eraseCDKButton(_ptr.get());
 	}
+	/**
+	 * @brief getBox
+	 * @return returns true if the widget will be drawn with a box around it.
+	 */
 	bool getBox()
 	{
 		return getCDKButtonBox (_ptr.get());
 	}
+	/**
+	 * @brief getMessage
+	 * @return the contents of the button widget.
+	 */
 	std::string_view getMessage()
 	{
 		auto msg = getCDKButtonMessage(_ptr.get());
 		return {reinterpret_cast<char*>(msg)};
 	}
+	/**
+	 * @brief inject injects a single character into the widget.
+	 * @param input the character to  inject  into  the widget.
+	 * @return The  return  value  and side-effect (setting the widget data exit‐
+			Type) depend upon the injected character:
+
+			RETURN or TAB
+				   this function returns 0, representing the button  selected.
+				   The widget data exitType is set to vNORMAL.
+
+			ESCAPE the  function  returns -1.  The widget data exitType is set
+				   to vESCAPE_HIT.
+
+			Otherwise
+				   unless modified by  preprocessing,  postprocessing  or  key
+				   bindings,  the  function returns -1.  The widget data exit‐
+				   Type is set to vEARLY_EXIT.
+	 */
 	int inject(chtype input)
 	{
 		return injectCDKButtonbox (_ptr.get(),input);
@@ -463,6 +514,12 @@ public:
 	{
 		setCDKButtonVerticalChar(_ptr.get(),c);
 	}
+	/**
+	 * @brief move moves to the given position.
+	 * @param p new position of the  wid‐
+				get.
+	 * @param o move_options
+	 */
 	void move(point p,move_options o)
 	{
 		moveCDKButton(_ptr.get(),
