@@ -100,21 +100,21 @@ public:
 	 * Has the opposite effect of the raiseCDKObject function call.
 	 * @param w pointer to widget
 	 */
-	void lowerObject(widget* w)
+	static void lowerObject(widget& w)
 	{
-		lowerCDKObject(w->type,w->_vptr);
+		lowerCDKObject(w.type,w._vptr);
 	}
 	/**
 	 * @brief raiseObject.
 	 * raises the widget to the top of the screen.
 	 * If there are any widgets which overlap the given object
 	 * when a refresh is done, calling this function has the
-	 * effect of raiding the object so no other widgets obstruct it.
+	 * effect of raising the object so no other widgets obstruct it.
 	 * @param w pointer to the object
 	 */
-	void raiseObject(widget* w)
+	static void raiseObject(widget& w)
 	{
-		raiseCDKObject(w->type,w->_vptr);
+		raiseCDKObject(w.type,w._vptr);
 	}
 	/**
 	 * @brief registerObject.
@@ -123,9 +123,9 @@ public:
 	 * by calling unregisterObject,
 	 * the widget can be registered again by calling this function.
 	 */
-	void registerObject(widget* w)
+	void registerObject(widget& w)
 	{
-		registerCDKObject(_ptr.get(),w->type,w->_vptr);
+		registerCDKObject(_ptr.get(),w.type,w._vptr);
 	}
 	/**
 	 * @brief unregisterObject.
@@ -134,9 +134,9 @@ public:
 	 * it removes the widget from any further
 	 * refreshes by the function refresh.
 	 */
-	void unregisterObject(widget* w)
+	static void unregisterObject(widget& w)
 	{
-		unregisterCDKObject(w->type,w->_vptr);
+		unregisterCDKObject(w.type,w._vptr);
 	}
 
 };
