@@ -34,6 +34,16 @@ std::vector<char*> transformStringList(const StringList &v)
 	return vc;
 }
 
+StringList transformCharPtrPtr(char** str,int size)
+{
+	StringList l;
+	for (int i = 0; i< size ; ++i)
+	{
+		l.push_back(str[i]);
+	}
+	return l;
+}
+
 struct widget
 {
 	void* _vptr{nullptr};
@@ -58,6 +68,7 @@ class screen
 	friend class label;
 	friend class button;
 	friend class text_entry;
+	friend class alpha_list;
 public:
 	/**
 	 * Constructor.
@@ -155,6 +166,12 @@ struct point
 	 * @brief Position in x axis. May be an integer or one of the pre-defined values LEFT, RIGHT, and CENTER.
 	 */
 	int y;
+};
+
+struct widget_size
+{
+	int width;
+	int height;
 };
 
 /**
@@ -545,6 +562,9 @@ public:
 	EObjectType type{vBUTTON};
 };
 
+/**
+ * @brief Text entry widget
+ */
 class text_entry : public widget
 {
 	struct deleter
@@ -734,4 +754,174 @@ public:
 	EObjectType type{vENTRY};
 };
 
+/**
+ * @brief Sorted list widget.
+ * alpha_list allows a user to select from a list of alphabetically sorted words.  The
+	   user can use the arrow keys to traverse through the list or type in the beginning  of  the
+	   word  and  the list will automatically adjust itself in the correct place in the scrolling
+	   list.  This widget, like the file selector widget, is a compound widget of both the  entry
+	   field widget and the scrolling list widget.
+ */
+class alpha_list : public widget
+{
+	struct deleter
+	{
+		void operator()(CDKALPHALIST* p)
+		{
+			destroyCDKAlphalist(p);
+		}
+	};
+	using alphalistptr = std::unique_ptr<CDKALPHALIST,deleter>;
+	alphalistptr _ptr;
+public:
+	alpha_list();
+
+
+	alpha_list(screen& parent, point p, widget_size size,
+	        std::string_view title,
+	        std::string_view  label,
+	        StringList list,
+	        chtype fillerCharacter,
+	        chtype highlight,
+	        drawing_options o)
+	{
+		_ptr = alphalistptr(newCDKAlphalist (
+		           parent._ptr.get(),
+		           p.x,
+		           p.y,
+		           size.height,
+		           size.width,
+		           title.data(),
+		           label.data(),
+		           transformStringList( list).data(),
+		           list.size(),
+		           fillerCharacter,
+		           highlight,
+		           o.box,
+		           o.shadow));
+		_vptr = _ptr.get();
+	}
+	std::string activate(chtype* actions)
+	{
+		return std::string(activateCDKAlphalist(_ptr.get(),actions));
+	}
+	void draw(bool box)
+	{
+		drawCDKAlphalist(_ptr.get(),box);
+	}
+	void erase()
+	{
+		eraseCDKAlphalist(_ptr.get());
+	}
+	bool getBox()
+	{
+		return getCDKAlphalistBox(_ptr.get());
+	}
+	StringList getContents()
+	{
+		int items;
+		char** contents = getCDKAlphalistContents (_ptr.get(),&items);
+		return transformCharPtrPtr(contents,items);
+	}
+	int getCurrentItem()
+	{
+		return getCDKAlphalistCurrentItem(_ptr.get());
+	}
+	chtype getFillerChar()
+	{
+		return getCDKAlphalistFillerChar (_ptr.get());
+	}
+	chtype getHighlight()
+	{
+		return getCDKAlphalistHighlight(_ptr.get());
+	}
+	char* inject(chtype input)
+	{
+		return injectCDKAlphalist(_ptr.get(),input);
+	}
+	void move(point p,move_options o)
+	{
+		moveCDKAlphalist(_ptr.get(), p.x, p.y, o.relative, o.refresh);
+	}
+	void position()
+	{
+		positionCDKAlphalist(_ptr.get());
+	}
+	void set(StringList list,chtype fillerCharacter,chtype highlight,bool box)
+	{
+		setCDKAlphalist(_ptr.get(),
+		        transformStringList(list).data(),
+		        list.size(),
+		        fillerCharacter,
+		        highlight,
+		        box);
+	}
+	void setBackgroundAttrib(chtype attribute)
+	{
+		setCDKAlphalistBackgroundAttrib (_ptr.get(),attribute);
+	}
+	void setBackgroundColor (const char* color)
+	{
+		setCDKAlphalistBackgroundColor(_ptr.get(),color);
+	}
+	void setBox(bool box)
+	{
+		setCDKAlphalistBox(_ptr.get(),box);
+	}
+	void setBoxAttribute(chtype character)
+	{
+		setCDKAlphalistBoxAttribute(_ptr.get(),character);
+	}
+	void setContents (StringList c)
+	{
+		setCDKAlphalistContents(_ptr.get(),transformStringList(c).data(),c.size());
+	}
+	void setCurrentItem(int item)
+	{
+		setCDKAlphalistCurrentItem (_ptr.get(),item);
+	}
+	void setFillerChar(chtype fillerCharacter)
+	{
+		setCDKAlphalistFillerChar(_ptr.get(),fillerCharacter);
+	}
+	void setHighlight(chtype highlight)
+	{
+		setCDKAlphalistHighlight (_ptr.get(),highlight);
+	}
+	void setHorizontalChar(chtype character)
+	{
+		setCDKAlphalistHorizontalChar (_ptr.get(),character);
+	}
+	void setLLChar(chtype character)
+	{
+		setCDKAlphalistLLChar(_ptr.get(),character);
+	}
+	void setLRChar(chtype character)
+	{
+		setCDKAlphalistLRChar(_ptr.get(),character);
+	}
+	void setPostProcess (PROCESSFN callback,void * data)
+	{
+		setCDKAlphalistPostProcess (_ptr.get(),callback, data);
+	}
+	void setPreProcess(PROCESSFN callback,void * data)
+	{
+		setCDKAlphalistPreProcess(_ptr.get(),callback,data);
+	}
+	void setULChar(chtype character)
+	{
+		setCDKAlphalistULChar (_ptr.get(),character);
+	}
+	void setURChar(chtype character)
+	{
+		setCDKAlphalistURChar (_ptr.get(),character);
+	}
+	void setVerticalChar(chtype character)
+	{
+		setCDKAlphalistVerticalChar(_ptr.get(),character);
+	}
+
+
+	EObjectType type{vALPHALIST};
+};
 }//namespace cdk
