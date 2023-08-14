@@ -69,6 +69,7 @@ class screen
 	friend class button;
 	friend class text_entry;
 	friend class alpha_list;
+	friend class calendar;
 public:
 	/**
 	 * Constructor.
@@ -774,7 +775,7 @@ class alpha_list : public widget
 	using alphalistptr = std::unique_ptr<CDKALPHALIST,deleter>;
 	alphalistptr _ptr;
 public:
-	alpha_list();
+	alpha_list() = default;
 
 
 	alpha_list(screen& parent, point p, widget_size size,
@@ -924,4 +925,293 @@ public:
 
 	EObjectType type{vALPHALIST};
 };
+
+struct date {
+	int day;
+	int month;
+	int year;
+
+};
+struct date_attributes
+{
+	chtype day;
+	chtype month;
+	chtype year;
+};
+
+class calendar : public widget
+{
+	struct deleter
+	{
+		void operator()(CDKCALENDAR* p)
+		{
+			destroyCDKCalendar(p);
+		}
+	};
+	using calendarptr = std::unique_ptr<CDKCALENDAR,deleter>;
+	calendarptr _ptr;
+public:
+	/**Empty constructor
+	  */
+	calendar() = default;
+	/**
+	 * @brief creates a calendar widget
+	 * @param parent the screen you wish this widget to be placed in.
+	 * @param p widget's position
+	 * @param title the string which will be displayed at the top of the wid‐
+				 get.  The title can be more than one  line;  just  provide  a
+				 carriage return character at the line break.
+	 * @param d initial date of the calendar.
+	 * @param attr the attributes of the year, month, and day respectively.
+	 * @param highlight sets the highlight of the currently selected day.
+	 * @param o
+	 */
+	calendar(screen parent,
+	         point p,
+	         std::string_view title,
+	         date d,
+	         date_attributes attr,
+	         chtype highlight,
+	         drawing_options o)
+	{
+		_ptr = calendarptr(newCDKCalendar (parent._ptr.get(),
+		                                p.x,p.y,
+		                                title.data(),
+		                                d.day,
+		                                d.month,
+		                                d.year,
+		                                attr.day,
+		                                attr.month,
+		                                attr.year,
+		                                highlight,
+		                                o.box,
+		                                o.shadow));
+		_vptr = _ptr.get();
+
+	}
+	/**
+	 * @brief  activates the calendar widget and lets the user interact with  the
+			widget.
+	 * @param actions If the actions parameter is passed with a non-NULL value,  the
+				characters in the array will be injected into the widget.
+				To  activate  the  widget interactively pass in a NULL pointer
+				for actions.
+	 * @return If the character entered into this widget is RETURN then  this
+				function will return a type of time_t.
+				If the character entered into this widget was ESCAPE or  TAB  then
+				this  function  will  return  a value of (time_t)-1 and the widget
+				data exitType will be set to vESCAPE_HIT.
+	 */
+	time_t activate(chtype *actions)
+	{
+		return activateCDKCalendar(_ptr.get(),actions);
+	}
+	/**
+	 * @brief draws the label widget on the screen.
+	 * @param box If the box parameter is true, the widget is drawn with a box.
+	 */
+	void draw(bool box)
+	{
+		drawCDKCalendar (_ptr.get(),box);
+	}
+	/**
+	 * @brief removes  the  widget  from  the screen.  This does NOT destroy the
+			widget.
+	 */
+	void erase()
+	{
+		eraseCDKCalendar(_ptr.get());
+	}
+	/**
+	 * @return returns whether the widget will be drawn with a box around it.
+	 */
+	bool getBox()
+	{
+		return getCDKCalendarBox(_ptr.get());
+	}
+	date getDate()
+	{
+		date d;
+		getCDKCalendarDate (_ptr.get(),
+		                    &d.day,
+		                    &d.month,
+		                    &d.year);
+		return d;
+	}
+	chtype getDayAttribute()
+	{
+		return getCDKCalendarDayAttribute(_ptr.get());
+	}
+	chtype getHighlight()
+	{
+		return getCDKCalendarHighlight(_ptr.get());
+	}
+	chtype getMarker(date d)
+	{
+		return getCDKCalendarMarker(_ptr.get(),
+		                            d.day,
+		                            d.month,
+		                            d.year);
+	}
+	chtype getMonthAttribute()
+	{
+		return getCDKCalendarMonthAttribute(_ptr.get());
+	}
+	chtype getYearAttribute()
+	{
+		return getCDKCalendarYearAttribute(_ptr.get());
+	}
+	time_t inject(chtype input)
+	{
+		return injectCDKCalendar(_ptr.get(),input);
+	}
+
+	void move(point p,move_options o)
+	{
+		moveCDKCalendar(_ptr.get(),
+		                p.x,p.y,
+		                o.relative,o.refresh);
+	}
+
+	void position()
+	{
+		positionCDKCalendar(_ptr.get());
+	}
+
+	void removeMarker(date d)
+	{
+		removeCDKCalendarMarker(_ptr.get(),
+		                   d.day,
+		                   d.month,
+		                   d.year);
+	}
+
+	void set(date d,date_attributes attr,chtype highlight,bool box)
+	{
+		setCDKCalendar (_ptr.get(),
+		                   d.day,
+		                   d.month,
+		                   d.year,
+		                   attr.day,
+		                   attr.month,
+		                   attr.year,
+		                   highlight,
+		                   box);
+	}
+	void setBackgroundAttrib (chtype attribute)
+	{
+		setCDKCalendarBackgroundAttrib (_ptr.get(),attribute);
+	}
+	void setBackgroundColor(std::string_view color)
+	{
+		setCDKCalendarBackgroundColor(_ptr.get(),color.data());
+	}
+	void setBox(bool box)
+	{
+		setCDKCalendarBox (_ptr.get(),box);
+	}
+	void setBoxAttribute(chtype ch)
+	{
+		setCDKCalendarBoxAttribute (_ptr.get(),ch);
+	}
+	void setDate(date d)
+	{
+		setCDKCalendarDate (_ptr.get(),
+		                   d.day,
+		                   d.month,
+		                   d.year);
+	}
+	void setDayAttribute (chtype attribute)
+	{
+		setCDKCalendarDayAttribute (_ptr.get(),attribute);
+	}
+	void setDaysNames(std::string_view days)
+	{
+		setCDKCalendarDaysNames (_ptr.get(),days.data());
+	}
+	void setHighlight (chtype attribute)
+	{
+		setCDKCalendarHighlight(_ptr.get(),attribute);
+	}
+	void setHorizontalChar(chtype ch)
+	{
+		setCDKCalendarHorizontalChar(_ptr.get(),ch);
+	}
+	void setLLChar(chtype ch)
+	{
+		setCDKCalendarLLChar(_ptr.get(),ch);
+	}
+	void setLRChar (chtype ch)
+	{
+		setCDKCalendarLRChar(_ptr.get(),ch);
+	}
+	void setMarker (date d,chtype marker)
+	{
+		setCDKCalendarMarker(_ptr.get(),
+		                   d.day,
+		                   d.month,
+		                   d.year,
+		                   marker);
+	}
+	void setMonthAttribute(chtype attribute)
+	{
+		setCDKCalendarMonthAttribute(_ptr.get(),attribute);
+	}
+	void setMonthsNames(StringList months)
+	{
+		setCDKCalendarMonthsNames(_ptr.get(),transformStringList( months).data());
+	}
+	void setPostProcess(PROCESSFN callback,void * data)
+	{
+		setCDKCalendarPostProcess(_ptr.get(),callback,data);
+	}
+	void setPreProcess(PROCESSFN callback,void * data)
+	{
+		setCDKCalendarPreProcess(_ptr.get(),callback,data);
+	}
+	void setULChar(chtype ch)
+	{
+		setCDKCalendarULChar(_ptr.get(),ch);
+	}
+	void setURChar(chtype ch)
+	{
+		setCDKCalendarURChar (_ptr.get(),ch);
+	}
+	void setVerticalChar(chtype ch)
+	{
+		setCDKCalendarVerticalChar(_ptr.get(),ch);
+	}
+
+	void setYearAttribute(chtype attribute)
+	{
+		setCDKCalendarYearAttribute (_ptr.get(),attribute);
+	}
+
+	EObjectType type{vCALENDAR};
+};
+
 }//namespace cdk
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
