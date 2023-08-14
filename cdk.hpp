@@ -939,6 +939,9 @@ struct date_attributes
 	chtype year;
 };
 
+/**
+ * @brief The calendar class curses calendar widget.
+ */
 class calendar : public widget
 {
 	struct deleter
@@ -964,7 +967,8 @@ public:
 	 * @param d initial date of the calendar.
 	 * @param attr the attributes of the year, month, and day respectively.
 	 * @param highlight sets the highlight of the currently selected day.
-	 * @param o
+	 * @param o drawing options
+	 * @sa drawing_options point
 	 */
 	calendar(screen parent,
 	         point p,
@@ -1023,12 +1027,15 @@ public:
 		eraseCDKCalendar(_ptr.get());
 	}
 	/**
-	 * @return returns whether the widget will be drawn with a box around it.
+	 * @return whether the widget will be drawn with a box around it.
 	 */
 	bool getBox()
 	{
 		return getCDKCalendarBox(_ptr.get());
 	}
+	/**
+	 * @return the current date the calendar is displaying.
+	 */
 	date getDate()
 	{
 		date d;
@@ -1038,14 +1045,25 @@ public:
 		                    &d.year);
 		return d;
 	}
+	/**
+	 * @return the attribute of the day attribute of the calendar.
+	 */
 	chtype getDayAttribute()
 	{
 		return getCDKCalendarDayAttribute(_ptr.get());
 	}
+	/**
+	 * @return the attribute of the highlight bar of the scrolling list portion of the widget.
+	 */
 	chtype getHighlight()
 	{
 		return getCDKCalendarHighlight(_ptr.get());
 	}
+	/**
+	 * @param d the date passed to setMarker
+	 * @return the marker set on the calendar by setMarker.
+	 * @sa setMarker
+	 */
 	chtype getMarker(date d)
 	{
 		return getCDKCalendarMarker(_ptr.get(),
@@ -1053,31 +1071,63 @@ public:
 		                            d.month,
 		                            d.year);
 	}
+	/**
+	 * @return the attribute of the month attribute of the calendar.
+	 */
 	chtype getMonthAttribute()
 	{
 		return getCDKCalendarMonthAttribute(_ptr.get());
 	}
+	/**
+	 * @return the attribute of the year attribute of the calendar.
+	 */
 	chtype getYearAttribute()
 	{
 		return getCDKCalendarYearAttribute(_ptr.get());
 	}
+	/**
+	 * @brief injects a single character into the widget.
+	 * @param input the character to inject into the widget.
+	 * @return The return value and side-effect (setting the widget data exitType) depend upon the injected  char‐
+			acter:
+
+			- RETURN or TAB
+				   the  function  returns a value of type time_t (see localtime or ctime for more information).
+				   The widget data exitType is set to vNORMAL.
+
+			- ESCAPE the function returns (time_t)-1.  The widget data exitType is set to vESCAPE_HIT.
+
+			- Otherwise
+				   unless modified by preprocessing, postprocessing  or  key  bindings,  the  function  returns
+				   (time_t)-1.  The widget data exitType is set to vEARLY_EXIT.
+	 */
 	time_t inject(chtype input)
 	{
 		return injectCDKCalendar(_ptr.get(),input);
 	}
-
+	/**
+	 * @brief moves the given widget to the given position.
+	 * @param p the new position of the widget.
+	 * @param o the move options
+	 * @sa move_options
+	 */
 	void move(point p,move_options o)
 	{
 		moveCDKCalendar(_ptr.get(),
 		                p.x,p.y,
 		                o.relative,o.refresh);
 	}
-
+	/**
+	 * @brief allows  the user to move the widget around the screen via the cursor/keypad keys.
+	 */
 	void position()
 	{
 		positionCDKCalendar(_ptr.get());
 	}
-
+	/**
+	 * @brief removes a marker from the calendar created with setMarker
+	 * @param d the date where the marker is.
+	 */
 	void removeMarker(date d)
 	{
 		removeCDKCalendarMarker(_ptr.get(),
@@ -1085,7 +1135,13 @@ public:
 		                   d.month,
 		                   d.year);
 	}
-
+	/**
+	 * @brief lets the programmer modify elements of an existing calendar widget.
+	 * @param d
+	 * @param attr
+	 * @param highlight
+	 * @param box
+	 */
 	void set(date d,date_attributes attr,chtype highlight,bool box)
 	{
 		setCDKCalendar (_ptr.get(),
@@ -1145,6 +1201,12 @@ public:
 	{
 		setCDKCalendarLRChar(_ptr.get(),ch);
 	}
+	/**
+	 * @brief allows the user to set a marker which will be displayed when the month is drawn.
+	 * @param d the date to display the marker
+	 * @param marker the attribute to use when drawing the marker.  If more than one  marker  is
+			set on a single day, then the day will blink with the original marker attribute.
+	 */
 	void setMarker (date d,chtype marker)
 	{
 		setCDKCalendarMarker(_ptr.get(),
