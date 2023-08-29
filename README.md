@@ -11,3 +11,7 @@ This is work in progress
 ## Requirements
 You will need the development package for libcdk 
 and ncurses. A C++ 2017 compiler is required.
+
+## Documentation
+Documentation is generated with [doxygen](https://www.doxygen.nl/) 
+and available online [here](https://virtuosonic.github.io/libcdkpp/)
