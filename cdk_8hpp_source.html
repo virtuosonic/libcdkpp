@@ -791,244 +791,240 @@ $(function() {
 <div class="line"><a name="l00939"></a><span class="lineno">  939</span>&#160;    chtype year;</div>
 <div class="line"><a name="l00940"></a><span class="lineno">  940</span>&#160;};</div>
 <div class="line"><a name="l00941"></a><span class="lineno">  941</span>&#160; </div>
-<div class="line"><a name="l00942"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html">  942</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcdk_1_1calendar.html">calendar</a> : <span class="keyword">public</span> <a class="code" href="structcdk_1_1widget.html">widget</a></div>
-<div class="line"><a name="l00943"></a><span class="lineno">  943</span>&#160;{</div>
-<div class="line"><a name="l00944"></a><span class="lineno">  944</span>&#160;    <span class="keyword">struct </span>deleter</div>
-<div class="line"><a name="l00945"></a><span class="lineno">  945</span>&#160;    {</div>
-<div class="line"><a name="l00946"></a><span class="lineno">  946</span>&#160;        <span class="keywordtype">void</span> operator()(CDKCALENDAR* p)</div>
-<div class="line"><a name="l00947"></a><span class="lineno">  947</span>&#160;        {</div>
-<div class="line"><a name="l00948"></a><span class="lineno">  948</span>&#160;            destroyCDKCalendar(p);</div>
-<div class="line"><a name="l00949"></a><span class="lineno">  949</span>&#160;        }</div>
-<div class="line"><a name="l00950"></a><span class="lineno">  950</span>&#160;    };</div>
-<div class="line"><a name="l00951"></a><span class="lineno">  951</span>&#160;    <span class="keyword">using</span> calendarptr = std::unique_ptr&lt;CDKCALENDAR,deleter&gt;;</div>
-<div class="line"><a name="l00952"></a><span class="lineno">  952</span>&#160;    calendarptr _ptr;</div>
-<div class="line"><a name="l00953"></a><span class="lineno">  953</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00956"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#a23edc8f7321cf155f3a254365a1c75b9">  956</a></span>&#160;    <a class="code" href="classcdk_1_1calendar.html#a23edc8f7321cf155f3a254365a1c75b9">calendar</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00969"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#a10d48d02bf19c1f716c4de2a538c5350">  969</a></span>&#160;    <a class="code" href="classcdk_1_1calendar.html#a10d48d02bf19c1f716c4de2a538c5350">calendar</a>(<a class="code" href="classcdk_1_1screen.html">screen</a> parent,</div>
-<div class="line"><a name="l00970"></a><span class="lineno">  970</span>&#160;             <a class="code" href="structcdk_1_1point.html">point</a> p,</div>
-<div class="line"><a name="l00971"></a><span class="lineno">  971</span>&#160;             std::string_view title,</div>
-<div class="line"><a name="l00972"></a><span class="lineno">  972</span>&#160;             <a class="code" href="structcdk_1_1date.html">date</a> d,</div>
-<div class="line"><a name="l00973"></a><span class="lineno">  973</span>&#160;             <a class="code" href="structcdk_1_1date__attributes.html">date_attributes</a> attr,</div>
-<div class="line"><a name="l00974"></a><span class="lineno">  974</span>&#160;             chtype highlight,</div>
-<div class="line"><a name="l00975"></a><span class="lineno">  975</span>&#160;             <a class="code" href="structcdk_1_1drawing__options.html">drawing_options</a> o)</div>
-<div class="line"><a name="l00976"></a><span class="lineno">  976</span>&#160;    {</div>
-<div class="line"><a name="l00977"></a><span class="lineno">  977</span>&#160;        _ptr = calendarptr(newCDKCalendar (parent._ptr.get(),</div>
-<div class="line"><a name="l00978"></a><span class="lineno">  978</span>&#160;                                        p.<a class="code" href="structcdk_1_1point.html#ab0aaa9282d6ff5366ea72bed9ae11973">x</a>,p.<a class="code" href="structcdk_1_1point.html#ab262658055770670bba31452f1a20401">y</a>,</div>
-<div class="line"><a name="l00979"></a><span class="lineno">  979</span>&#160;                                        title.data(),</div>
-<div class="line"><a name="l00980"></a><span class="lineno">  980</span>&#160;                                        d.day,</div>
-<div class="line"><a name="l00981"></a><span class="lineno">  981</span>&#160;                                        d.month,</div>
-<div class="line"><a name="l00982"></a><span class="lineno">  982</span>&#160;                                        d.year,</div>
-<div class="line"><a name="l00983"></a><span class="lineno">  983</span>&#160;                                        attr.day,</div>
-<div class="line"><a name="l00984"></a><span class="lineno">  984</span>&#160;                                        attr.month,</div>
-<div class="line"><a name="l00985"></a><span class="lineno">  985</span>&#160;                                        attr.year,</div>
-<div class="line"><a name="l00986"></a><span class="lineno">  986</span>&#160;                                        highlight,</div>
-<div class="line"><a name="l00987"></a><span class="lineno">  987</span>&#160;                                        o.<a class="code" href="structcdk_1_1drawing__options.html#a9bf8d1b49d59a17a615bd40dd54f7a68">box</a>,</div>
-<div class="line"><a name="l00988"></a><span class="lineno">  988</span>&#160;                                        o.<a class="code" href="structcdk_1_1drawing__options.html#aff87dbbbf10c7692434616300084bfa1">shadow</a>));</div>
-<div class="line"><a name="l00989"></a><span class="lineno">  989</span>&#160;        _vptr = _ptr.get();</div>
-<div class="line"><a name="l00990"></a><span class="lineno">  990</span>&#160; </div>
-<div class="line"><a name="l00991"></a><span class="lineno">  991</span>&#160;    }</div>
-<div class="line"><a name="l01005"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#a3b365a6cb7f83f9d0049979e37adec5c"> 1005</a></span>&#160;    time_t <a class="code" href="classcdk_1_1calendar.html#a3b365a6cb7f83f9d0049979e37adec5c">activate</a>(chtype *actions)</div>
-<div class="line"><a name="l01006"></a><span class="lineno"> 1006</span>&#160;    {</div>
-<div class="line"><a name="l01007"></a><span class="lineno"> 1007</span>&#160;        <span class="keywordflow">return</span> activateCDKCalendar(_ptr.get(),actions);</div>
-<div class="line"><a name="l01008"></a><span class="lineno"> 1008</span>&#160;    }</div>
-<div class="line"><a name="l01013"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#a04c5ab1e37aeaacc1783f80579d32815"> 1013</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classcdk_1_1calendar.html#a04c5ab1e37aeaacc1783f80579d32815">draw</a>(<span class="keywordtype">bool</span> box)</div>
-<div class="line"><a name="l01014"></a><span class="lineno"> 1014</span>&#160;    {</div>
-<div class="line"><a name="l01015"></a><span class="lineno"> 1015</span>&#160;        drawCDKCalendar (_ptr.get(),box);</div>
-<div class="line"><a name="l01016"></a><span class="lineno"> 1016</span>&#160;    }</div>
-<div class="line"><a name="l01021"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#a9bbb949b3aa9dc8d28c7d8abc4392951"> 1021</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classcdk_1_1calendar.html#a9bbb949b3aa9dc8d28c7d8abc4392951">erase</a>()</div>
-<div class="line"><a name="l01022"></a><span class="lineno"> 1022</span>&#160;    {</div>
-<div class="line"><a name="l01023"></a><span class="lineno"> 1023</span>&#160;        eraseCDKCalendar(_ptr.get());</div>
-<div class="line"><a name="l01024"></a><span class="lineno"> 1024</span>&#160;    }</div>
-<div class="line"><a name="l01028"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#ae3252f9657c0abbbe21b188707edee0c"> 1028</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classcdk_1_1calendar.html#ae3252f9657c0abbbe21b188707edee0c">getBox</a>()</div>
-<div class="line"><a name="l01029"></a><span class="lineno"> 1029</span>&#160;    {</div>
-<div class="line"><a name="l01030"></a><span class="lineno"> 1030</span>&#160;        <span class="keywordflow">return</span> getCDKCalendarBox(_ptr.get());</div>
-<div class="line"><a name="l01031"></a><span class="lineno"> 1031</span>&#160;    }</div>
-<div class="line"><a name="l01032"></a><span class="lineno"> 1032</span>&#160;    <a class="code" href="structcdk_1_1date.html">date</a> getDate()</div>
+<div class="line"><a name="l00945"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html">  945</a></span>&#160;<span class="keyword">class </span><a class="code" href="classcdk_1_1calendar.html">calendar</a> : <span class="keyword">public</span> <a class="code" href="structcdk_1_1widget.html">widget</a></div>
+<div class="line"><a name="l00946"></a><span class="lineno">  946</span>&#160;{</div>
+<div class="line"><a name="l00947"></a><span class="lineno">  947</span>&#160;    <span class="keyword">struct </span>deleter</div>
+<div class="line"><a name="l00948"></a><span class="lineno">  948</span>&#160;    {</div>
+<div class="line"><a name="l00949"></a><span class="lineno">  949</span>&#160;        <span class="keywordtype">void</span> operator()(CDKCALENDAR* p)</div>
+<div class="line"><a name="l00950"></a><span class="lineno">  950</span>&#160;        {</div>
+<div class="line"><a name="l00951"></a><span class="lineno">  951</span>&#160;            destroyCDKCalendar(p);</div>
+<div class="line"><a name="l00952"></a><span class="lineno">  952</span>&#160;        }</div>
+<div class="line"><a name="l00953"></a><span class="lineno">  953</span>&#160;    };</div>
+<div class="line"><a name="l00954"></a><span class="lineno">  954</span>&#160;    <span class="keyword">using</span> calendarptr = std::unique_ptr&lt;CDKCALENDAR,deleter&gt;;</div>
+<div class="line"><a name="l00955"></a><span class="lineno">  955</span>&#160;    calendarptr _ptr;</div>
+<div class="line"><a name="l00956"></a><span class="lineno">  956</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00959"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#a23edc8f7321cf155f3a254365a1c75b9">  959</a></span>&#160;    <a class="code" href="classcdk_1_1calendar.html#a23edc8f7321cf155f3a254365a1c75b9">calendar</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00973"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#a10d48d02bf19c1f716c4de2a538c5350">  973</a></span>&#160;    <a class="code" href="classcdk_1_1calendar.html#a10d48d02bf19c1f716c4de2a538c5350">calendar</a>(<a class="code" href="classcdk_1_1screen.html">screen</a> parent,</div>
+<div class="line"><a name="l00974"></a><span class="lineno">  974</span>&#160;             <a class="code" href="structcdk_1_1point.html">point</a> p,</div>
+<div class="line"><a name="l00975"></a><span class="lineno">  975</span>&#160;             std::string_view title,</div>
+<div class="line"><a name="l00976"></a><span class="lineno">  976</span>&#160;             <a class="code" href="structcdk_1_1date.html">date</a> d,</div>
+<div class="line"><a name="l00977"></a><span class="lineno">  977</span>&#160;             <a class="code" href="structcdk_1_1date__attributes.html">date_attributes</a> attr,</div>
+<div class="line"><a name="l00978"></a><span class="lineno">  978</span>&#160;             chtype highlight,</div>
+<div class="line"><a name="l00979"></a><span class="lineno">  979</span>&#160;             <a class="code" href="structcdk_1_1drawing__options.html">drawing_options</a> o)</div>
+<div class="line"><a name="l00980"></a><span class="lineno">  980</span>&#160;    {</div>
+<div class="line"><a name="l00981"></a><span class="lineno">  981</span>&#160;        _ptr = calendarptr(newCDKCalendar (parent._ptr.get(),</div>
+<div class="line"><a name="l00982"></a><span class="lineno">  982</span>&#160;                                        p.<a class="code" href="structcdk_1_1point.html#ab0aaa9282d6ff5366ea72bed9ae11973">x</a>,p.<a class="code" href="structcdk_1_1point.html#ab262658055770670bba31452f1a20401">y</a>,</div>
+<div class="line"><a name="l00983"></a><span class="lineno">  983</span>&#160;                                        title.data(),</div>
+<div class="line"><a name="l00984"></a><span class="lineno">  984</span>&#160;                                        d.day,</div>
+<div class="line"><a name="l00985"></a><span class="lineno">  985</span>&#160;                                        d.month,</div>
+<div class="line"><a name="l00986"></a><span class="lineno">  986</span>&#160;                                        d.year,</div>
+<div class="line"><a name="l00987"></a><span class="lineno">  987</span>&#160;                                        attr.day,</div>
+<div class="line"><a name="l00988"></a><span class="lineno">  988</span>&#160;                                        attr.month,</div>
+<div class="line"><a name="l00989"></a><span class="lineno">  989</span>&#160;                                        attr.year,</div>
+<div class="line"><a name="l00990"></a><span class="lineno">  990</span>&#160;                                        highlight,</div>
+<div class="line"><a name="l00991"></a><span class="lineno">  991</span>&#160;                                        o.<a class="code" href="structcdk_1_1drawing__options.html#a9bf8d1b49d59a17a615bd40dd54f7a68">box</a>,</div>
+<div class="line"><a name="l00992"></a><span class="lineno">  992</span>&#160;                                        o.<a class="code" href="structcdk_1_1drawing__options.html#aff87dbbbf10c7692434616300084bfa1">shadow</a>));</div>
+<div class="line"><a name="l00993"></a><span class="lineno">  993</span>&#160;        _vptr = _ptr.get();</div>
+<div class="line"><a name="l00994"></a><span class="lineno">  994</span>&#160; </div>
+<div class="line"><a name="l00995"></a><span class="lineno">  995</span>&#160;    }</div>
+<div class="line"><a name="l01009"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#a3b365a6cb7f83f9d0049979e37adec5c"> 1009</a></span>&#160;    time_t <a class="code" href="classcdk_1_1calendar.html#a3b365a6cb7f83f9d0049979e37adec5c">activate</a>(chtype *actions)</div>
+<div class="line"><a name="l01010"></a><span class="lineno"> 1010</span>&#160;    {</div>
+<div class="line"><a name="l01011"></a><span class="lineno"> 1011</span>&#160;        <span class="keywordflow">return</span> activateCDKCalendar(_ptr.get(),actions);</div>
+<div class="line"><a name="l01012"></a><span class="lineno"> 1012</span>&#160;    }</div>
+<div class="line"><a name="l01017"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#a04c5ab1e37aeaacc1783f80579d32815"> 1017</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classcdk_1_1calendar.html#a04c5ab1e37aeaacc1783f80579d32815">draw</a>(<span class="keywordtype">bool</span> box)</div>
+<div class="line"><a name="l01018"></a><span class="lineno"> 1018</span>&#160;    {</div>
+<div class="line"><a name="l01019"></a><span class="lineno"> 1019</span>&#160;        drawCDKCalendar (_ptr.get(),box);</div>
+<div class="line"><a name="l01020"></a><span class="lineno"> 1020</span>&#160;    }</div>
+<div class="line"><a name="l01025"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#a9bbb949b3aa9dc8d28c7d8abc4392951"> 1025</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classcdk_1_1calendar.html#a9bbb949b3aa9dc8d28c7d8abc4392951">erase</a>()</div>
+<div class="line"><a name="l01026"></a><span class="lineno"> 1026</span>&#160;    {</div>
+<div class="line"><a name="l01027"></a><span class="lineno"> 1027</span>&#160;        eraseCDKCalendar(_ptr.get());</div>
+<div class="line"><a name="l01028"></a><span class="lineno"> 1028</span>&#160;    }</div>
+<div class="line"><a name="l01032"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#ae3252f9657c0abbbe21b188707edee0c"> 1032</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classcdk_1_1calendar.html#ae3252f9657c0abbbe21b188707edee0c">getBox</a>()</div>
 <div class="line"><a name="l01033"></a><span class="lineno"> 1033</span>&#160;    {</div>
-<div class="line"><a name="l01034"></a><span class="lineno"> 1034</span>&#160;        <a class="code" href="structcdk_1_1date.html">date</a> d;</div>
-<div class="line"><a name="l01035"></a><span class="lineno"> 1035</span>&#160;        getCDKCalendarDate (_ptr.get(),</div>
-<div class="line"><a name="l01036"></a><span class="lineno"> 1036</span>&#160;                            &amp;d.day,</div>
-<div class="line"><a name="l01037"></a><span class="lineno"> 1037</span>&#160;                            &amp;d.month,</div>
-<div class="line"><a name="l01038"></a><span class="lineno"> 1038</span>&#160;                            &amp;d.year);</div>
-<div class="line"><a name="l01039"></a><span class="lineno"> 1039</span>&#160;        <span class="keywordflow">return</span> d;</div>
-<div class="line"><a name="l01040"></a><span class="lineno"> 1040</span>&#160;    }</div>
-<div class="line"><a name="l01041"></a><span class="lineno"> 1041</span>&#160;    chtype getDayAttribute()</div>
-<div class="line"><a name="l01042"></a><span class="lineno"> 1042</span>&#160;    {</div>
-<div class="line"><a name="l01043"></a><span class="lineno"> 1043</span>&#160;        <span class="keywordflow">return</span> getCDKCalendarDayAttribute(_ptr.get());</div>
-<div class="line"><a name="l01044"></a><span class="lineno"> 1044</span>&#160;    }</div>
-<div class="line"><a name="l01045"></a><span class="lineno"> 1045</span>&#160;    chtype getHighlight()</div>
-<div class="line"><a name="l01046"></a><span class="lineno"> 1046</span>&#160;    {</div>
-<div class="line"><a name="l01047"></a><span class="lineno"> 1047</span>&#160;        <span class="keywordflow">return</span> getCDKCalendarHighlight(_ptr.get());</div>
-<div class="line"><a name="l01048"></a><span class="lineno"> 1048</span>&#160;    }</div>
-<div class="line"><a name="l01049"></a><span class="lineno"> 1049</span>&#160;    chtype getMarker(date d)</div>
-<div class="line"><a name="l01050"></a><span class="lineno"> 1050</span>&#160;    {</div>
-<div class="line"><a name="l01051"></a><span class="lineno"> 1051</span>&#160;        <span class="keywordflow">return</span> getCDKCalendarMarker(_ptr.get(),</div>
-<div class="line"><a name="l01052"></a><span class="lineno"> 1052</span>&#160;                                    d.day,</div>
-<div class="line"><a name="l01053"></a><span class="lineno"> 1053</span>&#160;                                    d.month,</div>
-<div class="line"><a name="l01054"></a><span class="lineno"> 1054</span>&#160;                                    d.year);</div>
-<div class="line"><a name="l01055"></a><span class="lineno"> 1055</span>&#160;    }</div>
-<div class="line"><a name="l01056"></a><span class="lineno"> 1056</span>&#160;    chtype getMonthAttribute()</div>
-<div class="line"><a name="l01057"></a><span class="lineno"> 1057</span>&#160;    {</div>
-<div class="line"><a name="l01058"></a><span class="lineno"> 1058</span>&#160;        <span class="keywordflow">return</span> getCDKCalendarMonthAttribute(_ptr.get());</div>
-<div class="line"><a name="l01059"></a><span class="lineno"> 1059</span>&#160;    }</div>
-<div class="line"><a name="l01060"></a><span class="lineno"> 1060</span>&#160;    chtype getYearAttribute()</div>
-<div class="line"><a name="l01061"></a><span class="lineno"> 1061</span>&#160;    {</div>
-<div class="line"><a name="l01062"></a><span class="lineno"> 1062</span>&#160;        <span class="keywordflow">return</span> getCDKCalendarYearAttribute(_ptr.get());</div>
-<div class="line"><a name="l01063"></a><span class="lineno"> 1063</span>&#160;    }</div>
-<div class="line"><a name="l01064"></a><span class="lineno"> 1064</span>&#160;    time_t inject(chtype input)</div>
-<div class="line"><a name="l01065"></a><span class="lineno"> 1065</span>&#160;    {</div>
-<div class="line"><a name="l01066"></a><span class="lineno"> 1066</span>&#160;        <span class="keywordflow">return</span> injectCDKCalendar(_ptr.get(),input);</div>
-<div class="line"><a name="l01067"></a><span class="lineno"> 1067</span>&#160;    }</div>
-<div class="line"><a name="l01068"></a><span class="lineno"> 1068</span>&#160; </div>
-<div class="line"><a name="l01069"></a><span class="lineno"> 1069</span>&#160;    <span class="keywordtype">void</span> move(point p,move_options o)</div>
-<div class="line"><a name="l01070"></a><span class="lineno"> 1070</span>&#160;    {</div>
-<div class="line"><a name="l01071"></a><span class="lineno"> 1071</span>&#160;        moveCDKCalendar(_ptr.get(),</div>
-<div class="line"><a name="l01072"></a><span class="lineno"> 1072</span>&#160;                        p.x,p.y,</div>
-<div class="line"><a name="l01073"></a><span class="lineno"> 1073</span>&#160;                        o.relative,o.refresh);</div>
-<div class="line"><a name="l01074"></a><span class="lineno"> 1074</span>&#160;    }</div>
-<div class="line"><a name="l01075"></a><span class="lineno"> 1075</span>&#160; </div>
-<div class="line"><a name="l01076"></a><span class="lineno"> 1076</span>&#160;    <span class="keywordtype">void</span> position()</div>
-<div class="line"><a name="l01077"></a><span class="lineno"> 1077</span>&#160;    {</div>
-<div class="line"><a name="l01078"></a><span class="lineno"> 1078</span>&#160;        positionCDKCalendar(_ptr.get());</div>
-<div class="line"><a name="l01079"></a><span class="lineno"> 1079</span>&#160;    }</div>
-<div class="line"><a name="l01080"></a><span class="lineno"> 1080</span>&#160; </div>
-<div class="line"><a name="l01081"></a><span class="lineno"> 1081</span>&#160;    <span class="keywordtype">void</span> removeMarker(date d)</div>
-<div class="line"><a name="l01082"></a><span class="lineno"> 1082</span>&#160;    {</div>
-<div class="line"><a name="l01083"></a><span class="lineno"> 1083</span>&#160;        removeCDKCalendarMarker(_ptr.get(),</div>
-<div class="line"><a name="l01084"></a><span class="lineno"> 1084</span>&#160;                           d.day,</div>
-<div class="line"><a name="l01085"></a><span class="lineno"> 1085</span>&#160;                           d.month,</div>
-<div class="line"><a name="l01086"></a><span class="lineno"> 1086</span>&#160;                           d.year);</div>
+<div class="line"><a name="l01034"></a><span class="lineno"> 1034</span>&#160;        <span class="keywordflow">return</span> getCDKCalendarBox(_ptr.get());</div>
+<div class="line"><a name="l01035"></a><span class="lineno"> 1035</span>&#160;    }</div>
+<div class="line"><a name="l01039"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#a60528ddadf4cbe5b309b0f78e3fe564d"> 1039</a></span>&#160;    <a class="code" href="structcdk_1_1date.html">date</a> <a class="code" href="classcdk_1_1calendar.html#a60528ddadf4cbe5b309b0f78e3fe564d">getDate</a>()</div>
+<div class="line"><a name="l01040"></a><span class="lineno"> 1040</span>&#160;    {</div>
+<div class="line"><a name="l01041"></a><span class="lineno"> 1041</span>&#160;        <a class="code" href="structcdk_1_1date.html">date</a> d;</div>
+<div class="line"><a name="l01042"></a><span class="lineno"> 1042</span>&#160;        getCDKCalendarDate (_ptr.get(),</div>
+<div class="line"><a name="l01043"></a><span class="lineno"> 1043</span>&#160;                            &amp;d.day,</div>
+<div class="line"><a name="l01044"></a><span class="lineno"> 1044</span>&#160;                            &amp;d.month,</div>
+<div class="line"><a name="l01045"></a><span class="lineno"> 1045</span>&#160;                            &amp;d.year);</div>
+<div class="line"><a name="l01046"></a><span class="lineno"> 1046</span>&#160;        <span class="keywordflow">return</span> d;</div>
+<div class="line"><a name="l01047"></a><span class="lineno"> 1047</span>&#160;    }</div>
+<div class="line"><a name="l01051"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#ae6df540d75850a066e902fbe69ea4b40"> 1051</a></span>&#160;    chtype <a class="code" href="classcdk_1_1calendar.html#ae6df540d75850a066e902fbe69ea4b40">getDayAttribute</a>()</div>
+<div class="line"><a name="l01052"></a><span class="lineno"> 1052</span>&#160;    {</div>
+<div class="line"><a name="l01053"></a><span class="lineno"> 1053</span>&#160;        <span class="keywordflow">return</span> getCDKCalendarDayAttribute(_ptr.get());</div>
+<div class="line"><a name="l01054"></a><span class="lineno"> 1054</span>&#160;    }</div>
+<div class="line"><a name="l01058"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#a5ba5b1dd09192c4e901034c2c7dff9ac"> 1058</a></span>&#160;    chtype <a class="code" href="classcdk_1_1calendar.html#a5ba5b1dd09192c4e901034c2c7dff9ac">getHighlight</a>()</div>
+<div class="line"><a name="l01059"></a><span class="lineno"> 1059</span>&#160;    {</div>
+<div class="line"><a name="l01060"></a><span class="lineno"> 1060</span>&#160;        <span class="keywordflow">return</span> getCDKCalendarHighlight(_ptr.get());</div>
+<div class="line"><a name="l01061"></a><span class="lineno"> 1061</span>&#160;    }</div>
+<div class="line"><a name="l01067"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#afd86cbb74a54d87ca6ab3506c78348bf"> 1067</a></span>&#160;    chtype <a class="code" href="classcdk_1_1calendar.html#afd86cbb74a54d87ca6ab3506c78348bf">getMarker</a>(<a class="code" href="structcdk_1_1date.html">date</a> d)</div>
+<div class="line"><a name="l01068"></a><span class="lineno"> 1068</span>&#160;    {</div>
+<div class="line"><a name="l01069"></a><span class="lineno"> 1069</span>&#160;        <span class="keywordflow">return</span> getCDKCalendarMarker(_ptr.get(),</div>
+<div class="line"><a name="l01070"></a><span class="lineno"> 1070</span>&#160;                                    d.day,</div>
+<div class="line"><a name="l01071"></a><span class="lineno"> 1071</span>&#160;                                    d.month,</div>
+<div class="line"><a name="l01072"></a><span class="lineno"> 1072</span>&#160;                                    d.year);</div>
+<div class="line"><a name="l01073"></a><span class="lineno"> 1073</span>&#160;    }</div>
+<div class="line"><a name="l01077"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#a3064dc54447b07445290160f2fe218ad"> 1077</a></span>&#160;    chtype <a class="code" href="classcdk_1_1calendar.html#a3064dc54447b07445290160f2fe218ad">getMonthAttribute</a>()</div>
+<div class="line"><a name="l01078"></a><span class="lineno"> 1078</span>&#160;    {</div>
+<div class="line"><a name="l01079"></a><span class="lineno"> 1079</span>&#160;        <span class="keywordflow">return</span> getCDKCalendarMonthAttribute(_ptr.get());</div>
+<div class="line"><a name="l01080"></a><span class="lineno"> 1080</span>&#160;    }</div>
+<div class="line"><a name="l01084"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#a628a155e7aecc348861c56fbce245719"> 1084</a></span>&#160;    chtype <a class="code" href="classcdk_1_1calendar.html#a628a155e7aecc348861c56fbce245719">getYearAttribute</a>()</div>
+<div class="line"><a name="l01085"></a><span class="lineno"> 1085</span>&#160;    {</div>
+<div class="line"><a name="l01086"></a><span class="lineno"> 1086</span>&#160;        <span class="keywordflow">return</span> getCDKCalendarYearAttribute(_ptr.get());</div>
 <div class="line"><a name="l01087"></a><span class="lineno"> 1087</span>&#160;    }</div>
-<div class="line"><a name="l01088"></a><span class="lineno"> 1088</span>&#160; </div>
-<div class="line"><a name="l01089"></a><span class="lineno"> 1089</span>&#160;    <span class="keywordtype">void</span> set(date d,date_attributes attr,chtype highlight,<span class="keywordtype">bool</span> box)</div>
-<div class="line"><a name="l01090"></a><span class="lineno"> 1090</span>&#160;    {</div>
-<div class="line"><a name="l01091"></a><span class="lineno"> 1091</span>&#160;        setCDKCalendar (_ptr.get(),</div>
-<div class="line"><a name="l01092"></a><span class="lineno"> 1092</span>&#160;                           d.day,</div>
-<div class="line"><a name="l01093"></a><span class="lineno"> 1093</span>&#160;                           d.month,</div>
-<div class="line"><a name="l01094"></a><span class="lineno"> 1094</span>&#160;                           d.year,</div>
-<div class="line"><a name="l01095"></a><span class="lineno"> 1095</span>&#160;                           attr.day,</div>
-<div class="line"><a name="l01096"></a><span class="lineno"> 1096</span>&#160;                           attr.month,</div>
-<div class="line"><a name="l01097"></a><span class="lineno"> 1097</span>&#160;                           attr.year,</div>
-<div class="line"><a name="l01098"></a><span class="lineno"> 1098</span>&#160;                           highlight,</div>
-<div class="line"><a name="l01099"></a><span class="lineno"> 1099</span>&#160;                           box);</div>
-<div class="line"><a name="l01100"></a><span class="lineno"> 1100</span>&#160;    }</div>
-<div class="line"><a name="l01101"></a><span class="lineno"> 1101</span>&#160;    <span class="keywordtype">void</span> setBackgroundAttrib (chtype attribute)</div>
-<div class="line"><a name="l01102"></a><span class="lineno"> 1102</span>&#160;    {</div>
-<div class="line"><a name="l01103"></a><span class="lineno"> 1103</span>&#160;        setCDKCalendarBackgroundAttrib (_ptr.get(),attribute);</div>
-<div class="line"><a name="l01104"></a><span class="lineno"> 1104</span>&#160;    }</div>
-<div class="line"><a name="l01105"></a><span class="lineno"> 1105</span>&#160;    <span class="keywordtype">void</span> setBackgroundColor(std::string_view color)</div>
-<div class="line"><a name="l01106"></a><span class="lineno"> 1106</span>&#160;    {</div>
-<div class="line"><a name="l01107"></a><span class="lineno"> 1107</span>&#160;        setCDKCalendarBackgroundColor(_ptr.get(),color.data());</div>
-<div class="line"><a name="l01108"></a><span class="lineno"> 1108</span>&#160;    }</div>
-<div class="line"><a name="l01109"></a><span class="lineno"> 1109</span>&#160;    <span class="keywordtype">void</span> setBox(<span class="keywordtype">bool</span> box)</div>
-<div class="line"><a name="l01110"></a><span class="lineno"> 1110</span>&#160;    {</div>
-<div class="line"><a name="l01111"></a><span class="lineno"> 1111</span>&#160;        setCDKCalendarBox (_ptr.get(),box);</div>
-<div class="line"><a name="l01112"></a><span class="lineno"> 1112</span>&#160;    }</div>
-<div class="line"><a name="l01113"></a><span class="lineno"> 1113</span>&#160;    <span class="keywordtype">void</span> setBoxAttribute(chtype ch)</div>
-<div class="line"><a name="l01114"></a><span class="lineno"> 1114</span>&#160;    {</div>
-<div class="line"><a name="l01115"></a><span class="lineno"> 1115</span>&#160;        setCDKCalendarBoxAttribute (_ptr.get(),ch);</div>
-<div class="line"><a name="l01116"></a><span class="lineno"> 1116</span>&#160;    }</div>
-<div class="line"><a name="l01117"></a><span class="lineno"> 1117</span>&#160;    <span class="keywordtype">void</span> setDate(date d)</div>
-<div class="line"><a name="l01118"></a><span class="lineno"> 1118</span>&#160;    {</div>
-<div class="line"><a name="l01119"></a><span class="lineno"> 1119</span>&#160;        setCDKCalendarDate (_ptr.get(),</div>
-<div class="line"><a name="l01120"></a><span class="lineno"> 1120</span>&#160;                           d.day,</div>
-<div class="line"><a name="l01121"></a><span class="lineno"> 1121</span>&#160;                           d.month,</div>
-<div class="line"><a name="l01122"></a><span class="lineno"> 1122</span>&#160;                           d.year);</div>
-<div class="line"><a name="l01123"></a><span class="lineno"> 1123</span>&#160;    }</div>
-<div class="line"><a name="l01124"></a><span class="lineno"> 1124</span>&#160;    <span class="keywordtype">void</span> setDayAttribute (chtype attribute)</div>
-<div class="line"><a name="l01125"></a><span class="lineno"> 1125</span>&#160;    {</div>
-<div class="line"><a name="l01126"></a><span class="lineno"> 1126</span>&#160;        setCDKCalendarDayAttribute (_ptr.get(),attribute);</div>
-<div class="line"><a name="l01127"></a><span class="lineno"> 1127</span>&#160;    }</div>
-<div class="line"><a name="l01128"></a><span class="lineno"> 1128</span>&#160;    <span class="keywordtype">void</span> setDaysNames(std::string_view days)</div>
-<div class="line"><a name="l01129"></a><span class="lineno"> 1129</span>&#160;    {</div>
-<div class="line"><a name="l01130"></a><span class="lineno"> 1130</span>&#160;        setCDKCalendarDaysNames (_ptr.get(),days.data());</div>
-<div class="line"><a name="l01131"></a><span class="lineno"> 1131</span>&#160;    }</div>
-<div class="line"><a name="l01132"></a><span class="lineno"> 1132</span>&#160;    <span class="keywordtype">void</span> setHighlight (chtype attribute)</div>
-<div class="line"><a name="l01133"></a><span class="lineno"> 1133</span>&#160;    {</div>
-<div class="line"><a name="l01134"></a><span class="lineno"> 1134</span>&#160;        setCDKCalendarHighlight(_ptr.get(),attribute);</div>
-<div class="line"><a name="l01135"></a><span class="lineno"> 1135</span>&#160;    }</div>
-<div class="line"><a name="l01136"></a><span class="lineno"> 1136</span>&#160;    <span class="keywordtype">void</span> setHorizontalChar(chtype ch)</div>
-<div class="line"><a name="l01137"></a><span class="lineno"> 1137</span>&#160;    {</div>
-<div class="line"><a name="l01138"></a><span class="lineno"> 1138</span>&#160;        setCDKCalendarHorizontalChar(_ptr.get(),ch);</div>
-<div class="line"><a name="l01139"></a><span class="lineno"> 1139</span>&#160;    }</div>
-<div class="line"><a name="l01140"></a><span class="lineno"> 1140</span>&#160;    <span class="keywordtype">void</span> setLLChar(chtype ch)</div>
-<div class="line"><a name="l01141"></a><span class="lineno"> 1141</span>&#160;    {</div>
-<div class="line"><a name="l01142"></a><span class="lineno"> 1142</span>&#160;        setCDKCalendarLLChar(_ptr.get(),ch);</div>
-<div class="line"><a name="l01143"></a><span class="lineno"> 1143</span>&#160;    }</div>
-<div class="line"><a name="l01144"></a><span class="lineno"> 1144</span>&#160;    <span class="keywordtype">void</span> setLRChar (chtype ch)</div>
-<div class="line"><a name="l01145"></a><span class="lineno"> 1145</span>&#160;    {</div>
-<div class="line"><a name="l01146"></a><span class="lineno"> 1146</span>&#160;        setCDKCalendarLRChar(_ptr.get(),ch);</div>
-<div class="line"><a name="l01147"></a><span class="lineno"> 1147</span>&#160;    }</div>
-<div class="line"><a name="l01148"></a><span class="lineno"> 1148</span>&#160;    <span class="keywordtype">void</span> setMarker (date d,chtype marker)</div>
-<div class="line"><a name="l01149"></a><span class="lineno"> 1149</span>&#160;    {</div>
-<div class="line"><a name="l01150"></a><span class="lineno"> 1150</span>&#160;        setCDKCalendarMarker(_ptr.get(),</div>
-<div class="line"><a name="l01151"></a><span class="lineno"> 1151</span>&#160;                           d.day,</div>
-<div class="line"><a name="l01152"></a><span class="lineno"> 1152</span>&#160;                           d.month,</div>
-<div class="line"><a name="l01153"></a><span class="lineno"> 1153</span>&#160;                           d.year,</div>
-<div class="line"><a name="l01154"></a><span class="lineno"> 1154</span>&#160;                           marker);</div>
-<div class="line"><a name="l01155"></a><span class="lineno"> 1155</span>&#160;    }</div>
-<div class="line"><a name="l01156"></a><span class="lineno"> 1156</span>&#160;    <span class="keywordtype">void</span> setMonthAttribute(chtype attribute)</div>
-<div class="line"><a name="l01157"></a><span class="lineno"> 1157</span>&#160;    {</div>
-<div class="line"><a name="l01158"></a><span class="lineno"> 1158</span>&#160;        setCDKCalendarMonthAttribute(_ptr.get(),attribute);</div>
-<div class="line"><a name="l01159"></a><span class="lineno"> 1159</span>&#160;    }</div>
-<div class="line"><a name="l01160"></a><span class="lineno"> 1160</span>&#160;    <span class="keywordtype">void</span> setMonthsNames(StringList months)</div>
-<div class="line"><a name="l01161"></a><span class="lineno"> 1161</span>&#160;    {</div>
-<div class="line"><a name="l01162"></a><span class="lineno"> 1162</span>&#160;        setCDKCalendarMonthsNames(_ptr.get(),transformStringList( months).data());</div>
-<div class="line"><a name="l01163"></a><span class="lineno"> 1163</span>&#160;    }</div>
-<div class="line"><a name="l01164"></a><span class="lineno"> 1164</span>&#160;    <span class="keywordtype">void</span> setPostProcess(PROCESSFN callback,<span class="keywordtype">void</span> * data)</div>
-<div class="line"><a name="l01165"></a><span class="lineno"> 1165</span>&#160;    {</div>
-<div class="line"><a name="l01166"></a><span class="lineno"> 1166</span>&#160;        setCDKCalendarPostProcess(_ptr.get(),callback,data);</div>
-<div class="line"><a name="l01167"></a><span class="lineno"> 1167</span>&#160;    }</div>
-<div class="line"><a name="l01168"></a><span class="lineno"> 1168</span>&#160;    <span class="keywordtype">void</span> setPreProcess(PROCESSFN callback,<span class="keywordtype">void</span> * data)</div>
-<div class="line"><a name="l01169"></a><span class="lineno"> 1169</span>&#160;    {</div>
-<div class="line"><a name="l01170"></a><span class="lineno"> 1170</span>&#160;        setCDKCalendarPreProcess(_ptr.get(),callback,data);</div>
-<div class="line"><a name="l01171"></a><span class="lineno"> 1171</span>&#160;    }</div>
-<div class="line"><a name="l01172"></a><span class="lineno"> 1172</span>&#160;    <span class="keywordtype">void</span> setULChar(chtype ch)</div>
-<div class="line"><a name="l01173"></a><span class="lineno"> 1173</span>&#160;    {</div>
-<div class="line"><a name="l01174"></a><span class="lineno"> 1174</span>&#160;        setCDKCalendarULChar(_ptr.get(),ch);</div>
-<div class="line"><a name="l01175"></a><span class="lineno"> 1175</span>&#160;    }</div>
-<div class="line"><a name="l01176"></a><span class="lineno"> 1176</span>&#160;    <span class="keywordtype">void</span> setURChar(chtype ch)</div>
-<div class="line"><a name="l01177"></a><span class="lineno"> 1177</span>&#160;    {</div>
-<div class="line"><a name="l01178"></a><span class="lineno"> 1178</span>&#160;        setCDKCalendarURChar (_ptr.get(),ch);</div>
+<div class="line"><a name="l01104"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#a842fc08a89169e7ff2d9221b32416945"> 1104</a></span>&#160;    time_t <a class="code" href="classcdk_1_1calendar.html#a842fc08a89169e7ff2d9221b32416945">inject</a>(chtype input)</div>
+<div class="line"><a name="l01105"></a><span class="lineno"> 1105</span>&#160;    {</div>
+<div class="line"><a name="l01106"></a><span class="lineno"> 1106</span>&#160;        <span class="keywordflow">return</span> injectCDKCalendar(_ptr.get(),input);</div>
+<div class="line"><a name="l01107"></a><span class="lineno"> 1107</span>&#160;    }</div>
+<div class="line"><a name="l01114"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#a25ce75e5a0ce6e337ce7c726e6b5e3f2"> 1114</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classcdk_1_1calendar.html#a25ce75e5a0ce6e337ce7c726e6b5e3f2">move</a>(<a class="code" href="structcdk_1_1point.html">point</a> p,<a class="code" href="structcdk_1_1move__options.html">move_options</a> o)</div>
+<div class="line"><a name="l01115"></a><span class="lineno"> 1115</span>&#160;    {</div>
+<div class="line"><a name="l01116"></a><span class="lineno"> 1116</span>&#160;        moveCDKCalendar(_ptr.get(),</div>
+<div class="line"><a name="l01117"></a><span class="lineno"> 1117</span>&#160;                        p.<a class="code" href="structcdk_1_1point.html#ab0aaa9282d6ff5366ea72bed9ae11973">x</a>,p.<a class="code" href="structcdk_1_1point.html#ab262658055770670bba31452f1a20401">y</a>,</div>
+<div class="line"><a name="l01118"></a><span class="lineno"> 1118</span>&#160;                        o.relative,o.refresh);</div>
+<div class="line"><a name="l01119"></a><span class="lineno"> 1119</span>&#160;    }</div>
+<div class="line"><a name="l01123"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#ae583537ecd89be03927d0e148eccf2e1"> 1123</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classcdk_1_1calendar.html#ae583537ecd89be03927d0e148eccf2e1">position</a>()</div>
+<div class="line"><a name="l01124"></a><span class="lineno"> 1124</span>&#160;    {</div>
+<div class="line"><a name="l01125"></a><span class="lineno"> 1125</span>&#160;        positionCDKCalendar(_ptr.get());</div>
+<div class="line"><a name="l01126"></a><span class="lineno"> 1126</span>&#160;    }</div>
+<div class="line"><a name="l01131"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#ae40e9dd308509ded8a5408e16935cbe0"> 1131</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classcdk_1_1calendar.html#ae40e9dd308509ded8a5408e16935cbe0">removeMarker</a>(<a class="code" href="structcdk_1_1date.html">date</a> d)</div>
+<div class="line"><a name="l01132"></a><span class="lineno"> 1132</span>&#160;    {</div>
+<div class="line"><a name="l01133"></a><span class="lineno"> 1133</span>&#160;        removeCDKCalendarMarker(_ptr.get(),</div>
+<div class="line"><a name="l01134"></a><span class="lineno"> 1134</span>&#160;                           d.day,</div>
+<div class="line"><a name="l01135"></a><span class="lineno"> 1135</span>&#160;                           d.month,</div>
+<div class="line"><a name="l01136"></a><span class="lineno"> 1136</span>&#160;                           d.year);</div>
+<div class="line"><a name="l01137"></a><span class="lineno"> 1137</span>&#160;    }</div>
+<div class="line"><a name="l01145"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#ae2258b63f72049cc886b5377e8ae4254"> 1145</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classcdk_1_1calendar.html#ae2258b63f72049cc886b5377e8ae4254">set</a>(<a class="code" href="structcdk_1_1date.html">date</a> d,<a class="code" href="structcdk_1_1date__attributes.html">date_attributes</a> attr,chtype highlight,<span class="keywordtype">bool</span> box)</div>
+<div class="line"><a name="l01146"></a><span class="lineno"> 1146</span>&#160;    {</div>
+<div class="line"><a name="l01147"></a><span class="lineno"> 1147</span>&#160;        setCDKCalendar (_ptr.get(),</div>
+<div class="line"><a name="l01148"></a><span class="lineno"> 1148</span>&#160;                           d.day,</div>
+<div class="line"><a name="l01149"></a><span class="lineno"> 1149</span>&#160;                           d.month,</div>
+<div class="line"><a name="l01150"></a><span class="lineno"> 1150</span>&#160;                           d.year,</div>
+<div class="line"><a name="l01151"></a><span class="lineno"> 1151</span>&#160;                           attr.day,</div>
+<div class="line"><a name="l01152"></a><span class="lineno"> 1152</span>&#160;                           attr.month,</div>
+<div class="line"><a name="l01153"></a><span class="lineno"> 1153</span>&#160;                           attr.year,</div>
+<div class="line"><a name="l01154"></a><span class="lineno"> 1154</span>&#160;                           highlight,</div>
+<div class="line"><a name="l01155"></a><span class="lineno"> 1155</span>&#160;                           box);</div>
+<div class="line"><a name="l01156"></a><span class="lineno"> 1156</span>&#160;    }</div>
+<div class="line"><a name="l01157"></a><span class="lineno"> 1157</span>&#160;    <span class="keywordtype">void</span> setBackgroundAttrib (chtype attribute)</div>
+<div class="line"><a name="l01158"></a><span class="lineno"> 1158</span>&#160;    {</div>
+<div class="line"><a name="l01159"></a><span class="lineno"> 1159</span>&#160;        setCDKCalendarBackgroundAttrib (_ptr.get(),attribute);</div>
+<div class="line"><a name="l01160"></a><span class="lineno"> 1160</span>&#160;    }</div>
+<div class="line"><a name="l01161"></a><span class="lineno"> 1161</span>&#160;    <span class="keywordtype">void</span> setBackgroundColor(std::string_view color)</div>
+<div class="line"><a name="l01162"></a><span class="lineno"> 1162</span>&#160;    {</div>
+<div class="line"><a name="l01163"></a><span class="lineno"> 1163</span>&#160;        setCDKCalendarBackgroundColor(_ptr.get(),color.data());</div>
+<div class="line"><a name="l01164"></a><span class="lineno"> 1164</span>&#160;    }</div>
+<div class="line"><a name="l01165"></a><span class="lineno"> 1165</span>&#160;    <span class="keywordtype">void</span> setBox(<span class="keywordtype">bool</span> box)</div>
+<div class="line"><a name="l01166"></a><span class="lineno"> 1166</span>&#160;    {</div>
+<div class="line"><a name="l01167"></a><span class="lineno"> 1167</span>&#160;        setCDKCalendarBox (_ptr.get(),box);</div>
+<div class="line"><a name="l01168"></a><span class="lineno"> 1168</span>&#160;    }</div>
+<div class="line"><a name="l01169"></a><span class="lineno"> 1169</span>&#160;    <span class="keywordtype">void</span> setBoxAttribute(chtype ch)</div>
+<div class="line"><a name="l01170"></a><span class="lineno"> 1170</span>&#160;    {</div>
+<div class="line"><a name="l01171"></a><span class="lineno"> 1171</span>&#160;        setCDKCalendarBoxAttribute (_ptr.get(),ch);</div>
+<div class="line"><a name="l01172"></a><span class="lineno"> 1172</span>&#160;    }</div>
+<div class="line"><a name="l01173"></a><span class="lineno"> 1173</span>&#160;    <span class="keywordtype">void</span> setDate(date d)</div>
+<div class="line"><a name="l01174"></a><span class="lineno"> 1174</span>&#160;    {</div>
+<div class="line"><a name="l01175"></a><span class="lineno"> 1175</span>&#160;        setCDKCalendarDate (_ptr.get(),</div>
+<div class="line"><a name="l01176"></a><span class="lineno"> 1176</span>&#160;                           d.day,</div>
+<div class="line"><a name="l01177"></a><span class="lineno"> 1177</span>&#160;                           d.month,</div>
+<div class="line"><a name="l01178"></a><span class="lineno"> 1178</span>&#160;                           d.year);</div>
 <div class="line"><a name="l01179"></a><span class="lineno"> 1179</span>&#160;    }</div>
-<div class="line"><a name="l01180"></a><span class="lineno"> 1180</span>&#160;    <span class="keywordtype">void</span> setVerticalChar(chtype ch)</div>
+<div class="line"><a name="l01180"></a><span class="lineno"> 1180</span>&#160;    <span class="keywordtype">void</span> setDayAttribute (chtype attribute)</div>
 <div class="line"><a name="l01181"></a><span class="lineno"> 1181</span>&#160;    {</div>
-<div class="line"><a name="l01182"></a><span class="lineno"> 1182</span>&#160;        setCDKCalendarVerticalChar(_ptr.get(),ch);</div>
+<div class="line"><a name="l01182"></a><span class="lineno"> 1182</span>&#160;        setCDKCalendarDayAttribute (_ptr.get(),attribute);</div>
 <div class="line"><a name="l01183"></a><span class="lineno"> 1183</span>&#160;    }</div>
-<div class="line"><a name="l01184"></a><span class="lineno"> 1184</span>&#160; </div>
-<div class="line"><a name="l01185"></a><span class="lineno"> 1185</span>&#160;    <span class="keywordtype">void</span> setYearAttribute(chtype attribute)</div>
-<div class="line"><a name="l01186"></a><span class="lineno"> 1186</span>&#160;    {</div>
-<div class="line"><a name="l01187"></a><span class="lineno"> 1187</span>&#160;        setCDKCalendarYearAttribute (_ptr.get(),attribute);</div>
-<div class="line"><a name="l01188"></a><span class="lineno"> 1188</span>&#160;    }</div>
-<div class="line"><a name="l01189"></a><span class="lineno"> 1189</span>&#160; </div>
-<div class="line"><a name="l01190"></a><span class="lineno"> 1190</span>&#160;    EObjectType type{vCALENDAR};</div>
-<div class="line"><a name="l01191"></a><span class="lineno"> 1191</span>&#160;};</div>
-<div class="line"><a name="l01192"></a><span class="lineno"> 1192</span>&#160; </div>
-<div class="line"><a name="l01193"></a><span class="lineno"> 1193</span>&#160;}<span class="comment">//namespace cdk</span></div>
-<div class="line"><a name="l01194"></a><span class="lineno"> 1194</span>&#160; </div>
-<div class="line"><a name="l01195"></a><span class="lineno"> 1195</span>&#160; </div>
-<div class="line"><a name="l01196"></a><span class="lineno"> 1196</span>&#160; </div>
-<div class="line"><a name="l01197"></a><span class="lineno"> 1197</span>&#160; </div>
-<div class="line"><a name="l01198"></a><span class="lineno"> 1198</span>&#160; </div>
-<div class="line"><a name="l01199"></a><span class="lineno"> 1199</span>&#160; </div>
-<div class="line"><a name="l01200"></a><span class="lineno"> 1200</span>&#160; </div>
-<div class="line"><a name="l01201"></a><span class="lineno"> 1201</span>&#160; </div>
-<div class="line"><a name="l01202"></a><span class="lineno"> 1202</span>&#160; </div>
-<div class="line"><a name="l01203"></a><span class="lineno"> 1203</span>&#160; </div>
-<div class="line"><a name="l01204"></a><span class="lineno"> 1204</span>&#160; </div>
-<div class="line"><a name="l01205"></a><span class="lineno"> 1205</span>&#160; </div>
-<div class="line"><a name="l01206"></a><span class="lineno"> 1206</span>&#160; </div>
-<div class="line"><a name="l01207"></a><span class="lineno"> 1207</span>&#160; </div>
-<div class="line"><a name="l01208"></a><span class="lineno"> 1208</span>&#160; </div>
-<div class="line"><a name="l01209"></a><span class="lineno"> 1209</span>&#160; </div>
-<div class="line"><a name="l01210"></a><span class="lineno"> 1210</span>&#160; </div>
-<div class="line"><a name="l01211"></a><span class="lineno"> 1211</span>&#160; </div>
-<div class="line"><a name="l01212"></a><span class="lineno"> 1212</span>&#160; </div>
-<div class="line"><a name="l01213"></a><span class="lineno"> 1213</span>&#160; </div>
-<div class="line"><a name="l01214"></a><span class="lineno"> 1214</span>&#160; </div>
-<div class="line"><a name="l01215"></a><span class="lineno"> 1215</span>&#160; </div>
-<div class="line"><a name="l01216"></a><span class="lineno"> 1216</span>&#160; </div>
-<div class="line"><a name="l01217"></a><span class="lineno"> 1217</span>&#160; </div>
+<div class="line"><a name="l01184"></a><span class="lineno"> 1184</span>&#160;    <span class="keywordtype">void</span> setDaysNames(std::string_view days)</div>
+<div class="line"><a name="l01185"></a><span class="lineno"> 1185</span>&#160;    {</div>
+<div class="line"><a name="l01186"></a><span class="lineno"> 1186</span>&#160;        setCDKCalendarDaysNames (_ptr.get(),days.data());</div>
+<div class="line"><a name="l01187"></a><span class="lineno"> 1187</span>&#160;    }</div>
+<div class="line"><a name="l01188"></a><span class="lineno"> 1188</span>&#160;    <span class="keywordtype">void</span> setHighlight (chtype attribute)</div>
+<div class="line"><a name="l01189"></a><span class="lineno"> 1189</span>&#160;    {</div>
+<div class="line"><a name="l01190"></a><span class="lineno"> 1190</span>&#160;        setCDKCalendarHighlight(_ptr.get(),attribute);</div>
+<div class="line"><a name="l01191"></a><span class="lineno"> 1191</span>&#160;    }</div>
+<div class="line"><a name="l01192"></a><span class="lineno"> 1192</span>&#160;    <span class="keywordtype">void</span> setHorizontalChar(chtype ch)</div>
+<div class="line"><a name="l01193"></a><span class="lineno"> 1193</span>&#160;    {</div>
+<div class="line"><a name="l01194"></a><span class="lineno"> 1194</span>&#160;        setCDKCalendarHorizontalChar(_ptr.get(),ch);</div>
+<div class="line"><a name="l01195"></a><span class="lineno"> 1195</span>&#160;    }</div>
+<div class="line"><a name="l01196"></a><span class="lineno"> 1196</span>&#160;    <span class="keywordtype">void</span> setLLChar(chtype ch)</div>
+<div class="line"><a name="l01197"></a><span class="lineno"> 1197</span>&#160;    {</div>
+<div class="line"><a name="l01198"></a><span class="lineno"> 1198</span>&#160;        setCDKCalendarLLChar(_ptr.get(),ch);</div>
+<div class="line"><a name="l01199"></a><span class="lineno"> 1199</span>&#160;    }</div>
+<div class="line"><a name="l01200"></a><span class="lineno"> 1200</span>&#160;    <span class="keywordtype">void</span> setLRChar (chtype ch)</div>
+<div class="line"><a name="l01201"></a><span class="lineno"> 1201</span>&#160;    {</div>
+<div class="line"><a name="l01202"></a><span class="lineno"> 1202</span>&#160;        setCDKCalendarLRChar(_ptr.get(),ch);</div>
+<div class="line"><a name="l01203"></a><span class="lineno"> 1203</span>&#160;    }</div>
+<div class="line"><a name="l01210"></a><span class="lineno"><a class="line" href="classcdk_1_1calendar.html#a2ebada16782b4635ca4b17a97e4e069f"> 1210</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classcdk_1_1calendar.html#a2ebada16782b4635ca4b17a97e4e069f">setMarker</a> (<a class="code" href="structcdk_1_1date.html">date</a> d,chtype marker)</div>
+<div class="line"><a name="l01211"></a><span class="lineno"> 1211</span>&#160;    {</div>
+<div class="line"><a name="l01212"></a><span class="lineno"> 1212</span>&#160;        setCDKCalendarMarker(_ptr.get(),</div>
+<div class="line"><a name="l01213"></a><span class="lineno"> 1213</span>&#160;                           d.day,</div>
+<div class="line"><a name="l01214"></a><span class="lineno"> 1214</span>&#160;                           d.month,</div>
+<div class="line"><a name="l01215"></a><span class="lineno"> 1215</span>&#160;                           d.year,</div>
+<div class="line"><a name="l01216"></a><span class="lineno"> 1216</span>&#160;                           marker);</div>
+<div class="line"><a name="l01217"></a><span class="lineno"> 1217</span>&#160;    }</div>
+<div class="line"><a name="l01218"></a><span class="lineno"> 1218</span>&#160;    <span class="keywordtype">void</span> setMonthAttribute(chtype attribute)</div>
+<div class="line"><a name="l01219"></a><span class="lineno"> 1219</span>&#160;    {</div>
+<div class="line"><a name="l01220"></a><span class="lineno"> 1220</span>&#160;        setCDKCalendarMonthAttribute(_ptr.get(),attribute);</div>
+<div class="line"><a name="l01221"></a><span class="lineno"> 1221</span>&#160;    }</div>
+<div class="line"><a name="l01222"></a><span class="lineno"> 1222</span>&#160;    <span class="keywordtype">void</span> setMonthsNames(StringList months)</div>
+<div class="line"><a name="l01223"></a><span class="lineno"> 1223</span>&#160;    {</div>
+<div class="line"><a name="l01224"></a><span class="lineno"> 1224</span>&#160;        setCDKCalendarMonthsNames(_ptr.get(),transformStringList( months).data());</div>
+<div class="line"><a name="l01225"></a><span class="lineno"> 1225</span>&#160;    }</div>
+<div class="line"><a name="l01226"></a><span class="lineno"> 1226</span>&#160;    <span class="keywordtype">void</span> setPostProcess(PROCESSFN callback,<span class="keywordtype">void</span> * data)</div>
+<div class="line"><a name="l01227"></a><span class="lineno"> 1227</span>&#160;    {</div>
+<div class="line"><a name="l01228"></a><span class="lineno"> 1228</span>&#160;        setCDKCalendarPostProcess(_ptr.get(),callback,data);</div>
+<div class="line"><a name="l01229"></a><span class="lineno"> 1229</span>&#160;    }</div>
+<div class="line"><a name="l01230"></a><span class="lineno"> 1230</span>&#160;    <span class="keywordtype">void</span> setPreProcess(PROCESSFN callback,<span class="keywordtype">void</span> * data)</div>
+<div class="line"><a name="l01231"></a><span class="lineno"> 1231</span>&#160;    {</div>
+<div class="line"><a name="l01232"></a><span class="lineno"> 1232</span>&#160;        setCDKCalendarPreProcess(_ptr.get(),callback,data);</div>
+<div class="line"><a name="l01233"></a><span class="lineno"> 1233</span>&#160;    }</div>
+<div class="line"><a name="l01234"></a><span class="lineno"> 1234</span>&#160;    <span class="keywordtype">void</span> setULChar(chtype ch)</div>
+<div class="line"><a name="l01235"></a><span class="lineno"> 1235</span>&#160;    {</div>
+<div class="line"><a name="l01236"></a><span class="lineno"> 1236</span>&#160;        setCDKCalendarULChar(_ptr.get(),ch);</div>
+<div class="line"><a name="l01237"></a><span class="lineno"> 1237</span>&#160;    }</div>
+<div class="line"><a name="l01238"></a><span class="lineno"> 1238</span>&#160;    <span class="keywordtype">void</span> setURChar(chtype ch)</div>
+<div class="line"><a name="l01239"></a><span class="lineno"> 1239</span>&#160;    {</div>
+<div class="line"><a name="l01240"></a><span class="lineno"> 1240</span>&#160;        setCDKCalendarURChar (_ptr.get(),ch);</div>
+<div class="line"><a name="l01241"></a><span class="lineno"> 1241</span>&#160;    }</div>
+<div class="line"><a name="l01242"></a><span class="lineno"> 1242</span>&#160;    <span class="keywordtype">void</span> setVerticalChar(chtype ch)</div>
+<div class="line"><a name="l01243"></a><span class="lineno"> 1243</span>&#160;    {</div>
+<div class="line"><a name="l01244"></a><span class="lineno"> 1244</span>&#160;        setCDKCalendarVerticalChar(_ptr.get(),ch);</div>
+<div class="line"><a name="l01245"></a><span class="lineno"> 1245</span>&#160;    }</div>
+<div class="line"><a name="l01246"></a><span class="lineno"> 1246</span>&#160; </div>
+<div class="line"><a name="l01247"></a><span class="lineno"> 1247</span>&#160;    <span class="keywordtype">void</span> setYearAttribute(chtype attribute)</div>
+<div class="line"><a name="l01248"></a><span class="lineno"> 1248</span>&#160;    {</div>
+<div class="line"><a name="l01249"></a><span class="lineno"> 1249</span>&#160;        setCDKCalendarYearAttribute (_ptr.get(),attribute);</div>
+<div class="line"><a name="l01250"></a><span class="lineno"> 1250</span>&#160;    }</div>
+<div class="line"><a name="l01251"></a><span class="lineno"> 1251</span>&#160; </div>
+<div class="line"><a name="l01252"></a><span class="lineno"> 1252</span>&#160;    EObjectType type{vCALENDAR};</div>
+<div class="line"><a name="l01253"></a><span class="lineno"> 1253</span>&#160;};</div>
+<div class="line"><a name="l01254"></a><span class="lineno"> 1254</span>&#160; </div>
+<div class="line"><a name="l01255"></a><span class="lineno"> 1255</span>&#160;}<span class="comment">//namespace cdk</span></div>
+<div class="line"><a name="l01256"></a><span class="lineno"> 1256</span>&#160; </div>
+<div class="line"><a name="l01257"></a><span class="lineno"> 1257</span>&#160; </div>
+<div class="line"><a name="l01258"></a><span class="lineno"> 1258</span>&#160; </div>
+<div class="line"><a name="l01259"></a><span class="lineno"> 1259</span>&#160; </div>
+<div class="line"><a name="l01260"></a><span class="lineno"> 1260</span>&#160; </div>
+<div class="line"><a name="l01261"></a><span class="lineno"> 1261</span>&#160; </div>
+<div class="line"><a name="l01262"></a><span class="lineno"> 1262</span>&#160; </div>
+<div class="line"><a name="l01263"></a><span class="lineno"> 1263</span>&#160; </div>
+<div class="line"><a name="l01264"></a><span class="lineno"> 1264</span>&#160; </div>
+<div class="line"><a name="l01265"></a><span class="lineno"> 1265</span>&#160; </div>
+<div class="line"><a name="l01266"></a><span class="lineno"> 1266</span>&#160; </div>
+<div class="line"><a name="l01267"></a><span class="lineno"> 1267</span>&#160; </div>
+<div class="line"><a name="l01268"></a><span class="lineno"> 1268</span>&#160; </div>
+<div class="line"><a name="l01269"></a><span class="lineno"> 1269</span>&#160; </div>
+<div class="line"><a name="l01270"></a><span class="lineno"> 1270</span>&#160; </div>
+<div class="line"><a name="l01271"></a><span class="lineno"> 1271</span>&#160; </div>
+<div class="line"><a name="l01272"></a><span class="lineno"> 1272</span>&#160; </div>
+<div class="line"><a name="l01273"></a><span class="lineno"> 1273</span>&#160; </div>
+<div class="line"><a name="l01274"></a><span class="lineno"> 1274</span>&#160; </div>
+<div class="line"><a name="l01275"></a><span class="lineno"> 1275</span>&#160; </div>
+<div class="line"><a name="l01276"></a><span class="lineno"> 1276</span>&#160; </div>
+<div class="line"><a name="l01277"></a><span class="lineno"> 1277</span>&#160; </div>
+<div class="line"><a name="l01278"></a><span class="lineno"> 1278</span>&#160; </div>
+<div class="line"><a name="l01279"></a><span class="lineno"> 1279</span>&#160; </div>
 <div class="ttc" id="aclasscdk_1_1alpha__list_html"><div class="ttname"><a href="classcdk_1_1alpha__list.html">cdk::alpha_list</a></div><div class="ttdoc">Sorted list widget. alpha_list allows a user to select from a list of alphabetically sorted words....</div><div class="ttdef"><b>Definition:</b> cdk.hpp:767</div></div>
 <div class="ttc" id="aclasscdk_1_1button_html"><div class="ttname"><a href="classcdk_1_1button.html">cdk::button</a></div><div class="ttdoc">Create and manage a curses button widget.</div><div class="ttdef"><b>Definition:</b> cdk.hpp:404</div></div>
 <div class="ttc" id="aclasscdk_1_1button_html_a1f1518a3c3e6414c94f13bda2ba189bb"><div class="ttname"><a href="classcdk_1_1button.html#a1f1518a3c3e6414c94f13bda2ba189bb">cdk::button::draw</a></div><div class="ttdeci">void draw(bool box)</div><div class="ttdoc">Draws the button widget on the screen.</div><div class="ttdef"><b>Definition:</b> cdk.hpp:450</div></div>
@@ -1042,13 +1038,25 @@ $(function() {
 <div class="ttc" id="aclasscdk_1_1button_html_a9e9546dd029f9ade8c8856c53034e0bb"><div class="ttname"><a href="classcdk_1_1button.html#a9e9546dd029f9ade8c8856c53034e0bb">cdk::button::erase</a></div><div class="ttdeci">void erase()</div><div class="ttdoc">Removes the widget from the screen. This does NOT destroy the widget.</div><div class="ttdef"><b>Definition:</b> cdk.hpp:457</div></div>
 <div class="ttc" id="aclasscdk_1_1button_html_aa7e4104a280ffd8b9f17b19a281fb6c6"><div class="ttname"><a href="classcdk_1_1button.html#aa7e4104a280ffd8b9f17b19a281fb6c6">cdk::button::getBox</a></div><div class="ttdeci">bool getBox()</div><div class="ttdoc">Returns true if the widget will be drawn with a box around it.</div><div class="ttdef"><b>Definition:</b> cdk.hpp:464</div></div>
 <div class="ttc" id="aclasscdk_1_1button_html_af53428e9e2a83a661a4c6c246f998039"><div class="ttname"><a href="classcdk_1_1button.html#af53428e9e2a83a661a4c6c246f998039">cdk::button::position</a></div><div class="ttdeci">void position()</div><div class="ttdoc">Allows the user to move the widget around the screen via the cursor/keypad keys.</div><div class="ttdef"><b>Definition:</b> cdk.hpp:553</div></div>
-<div class="ttc" id="aclasscdk_1_1calendar_html"><div class="ttname"><a href="classcdk_1_1calendar.html">cdk::calendar</a></div><div class="ttdef"><b>Definition:</b> cdk.hpp:943</div></div>
-<div class="ttc" id="aclasscdk_1_1calendar_html_a04c5ab1e37aeaacc1783f80579d32815"><div class="ttname"><a href="classcdk_1_1calendar.html#a04c5ab1e37aeaacc1783f80579d32815">cdk::calendar::draw</a></div><div class="ttdeci">void draw(bool box)</div><div class="ttdoc">draws the label widget on the screen.</div><div class="ttdef"><b>Definition:</b> cdk.hpp:1013</div></div>
-<div class="ttc" id="aclasscdk_1_1calendar_html_a10d48d02bf19c1f716c4de2a538c5350"><div class="ttname"><a href="classcdk_1_1calendar.html#a10d48d02bf19c1f716c4de2a538c5350">cdk::calendar::calendar</a></div><div class="ttdeci">calendar(screen parent, point p, std::string_view title, date d, date_attributes attr, chtype highlight, drawing_options o)</div><div class="ttdoc">creates a calendar widget</div><div class="ttdef"><b>Definition:</b> cdk.hpp:969</div></div>
+<div class="ttc" id="aclasscdk_1_1calendar_html"><div class="ttname"><a href="classcdk_1_1calendar.html">cdk::calendar</a></div><div class="ttdoc">The calendar class curses calendar widget.</div><div class="ttdef"><b>Definition:</b> cdk.hpp:946</div></div>
+<div class="ttc" id="aclasscdk_1_1calendar_html_a04c5ab1e37aeaacc1783f80579d32815"><div class="ttname"><a href="classcdk_1_1calendar.html#a04c5ab1e37aeaacc1783f80579d32815">cdk::calendar::draw</a></div><div class="ttdeci">void draw(bool box)</div><div class="ttdoc">draws the label widget on the screen.</div><div class="ttdef"><b>Definition:</b> cdk.hpp:1017</div></div>
+<div class="ttc" id="aclasscdk_1_1calendar_html_a10d48d02bf19c1f716c4de2a538c5350"><div class="ttname"><a href="classcdk_1_1calendar.html#a10d48d02bf19c1f716c4de2a538c5350">cdk::calendar::calendar</a></div><div class="ttdeci">calendar(screen parent, point p, std::string_view title, date d, date_attributes attr, chtype highlight, drawing_options o)</div><div class="ttdoc">creates a calendar widget</div><div class="ttdef"><b>Definition:</b> cdk.hpp:973</div></div>
 <div class="ttc" id="aclasscdk_1_1calendar_html_a23edc8f7321cf155f3a254365a1c75b9"><div class="ttname"><a href="classcdk_1_1calendar.html#a23edc8f7321cf155f3a254365a1c75b9">cdk::calendar::calendar</a></div><div class="ttdeci">calendar()=default</div></div>
-<div class="ttc" id="aclasscdk_1_1calendar_html_a3b365a6cb7f83f9d0049979e37adec5c"><div class="ttname"><a href="classcdk_1_1calendar.html#a3b365a6cb7f83f9d0049979e37adec5c">cdk::calendar::activate</a></div><div class="ttdeci">time_t activate(chtype *actions)</div><div class="ttdoc">activates the calendar widget and lets the user interact with the widget.</div><div class="ttdef"><b>Definition:</b> cdk.hpp:1005</div></div>
-<div class="ttc" id="aclasscdk_1_1calendar_html_a9bbb949b3aa9dc8d28c7d8abc4392951"><div class="ttname"><a href="classcdk_1_1calendar.html#a9bbb949b3aa9dc8d28c7d8abc4392951">cdk::calendar::erase</a></div><div class="ttdeci">void erase()</div><div class="ttdoc">removes the widget from the screen. This does NOT destroy the widget.</div><div class="ttdef"><b>Definition:</b> cdk.hpp:1021</div></div>
-<div class="ttc" id="aclasscdk_1_1calendar_html_ae3252f9657c0abbbe21b188707edee0c"><div class="ttname"><a href="classcdk_1_1calendar.html#ae3252f9657c0abbbe21b188707edee0c">cdk::calendar::getBox</a></div><div class="ttdeci">bool getBox()</div><div class="ttdef"><b>Definition:</b> cdk.hpp:1028</div></div>
+<div class="ttc" id="aclasscdk_1_1calendar_html_a25ce75e5a0ce6e337ce7c726e6b5e3f2"><div class="ttname"><a href="classcdk_1_1calendar.html#a25ce75e5a0ce6e337ce7c726e6b5e3f2">cdk::calendar::move</a></div><div class="ttdeci">void move(point p, move_options o)</div><div class="ttdoc">moves the given widget to the given position.</div><div class="ttdef"><b>Definition:</b> cdk.hpp:1114</div></div>
+<div class="ttc" id="aclasscdk_1_1calendar_html_a2ebada16782b4635ca4b17a97e4e069f"><div class="ttname"><a href="classcdk_1_1calendar.html#a2ebada16782b4635ca4b17a97e4e069f">cdk::calendar::setMarker</a></div><div class="ttdeci">void setMarker(date d, chtype marker)</div><div class="ttdoc">allows the user to set a marker which will be displayed when the month is drawn.</div><div class="ttdef"><b>Definition:</b> cdk.hpp:1210</div></div>
+<div class="ttc" id="aclasscdk_1_1calendar_html_a3064dc54447b07445290160f2fe218ad"><div class="ttname"><a href="classcdk_1_1calendar.html#a3064dc54447b07445290160f2fe218ad">cdk::calendar::getMonthAttribute</a></div><div class="ttdeci">chtype getMonthAttribute()</div><div class="ttdef"><b>Definition:</b> cdk.hpp:1077</div></div>
+<div class="ttc" id="aclasscdk_1_1calendar_html_a3b365a6cb7f83f9d0049979e37adec5c"><div class="ttname"><a href="classcdk_1_1calendar.html#a3b365a6cb7f83f9d0049979e37adec5c">cdk::calendar::activate</a></div><div class="ttdeci">time_t activate(chtype *actions)</div><div class="ttdoc">activates the calendar widget and lets the user interact with the widget.</div><div class="ttdef"><b>Definition:</b> cdk.hpp:1009</div></div>
+<div class="ttc" id="aclasscdk_1_1calendar_html_a5ba5b1dd09192c4e901034c2c7dff9ac"><div class="ttname"><a href="classcdk_1_1calendar.html#a5ba5b1dd09192c4e901034c2c7dff9ac">cdk::calendar::getHighlight</a></div><div class="ttdeci">chtype getHighlight()</div><div class="ttdef"><b>Definition:</b> cdk.hpp:1058</div></div>
+<div class="ttc" id="aclasscdk_1_1calendar_html_a60528ddadf4cbe5b309b0f78e3fe564d"><div class="ttname"><a href="classcdk_1_1calendar.html#a60528ddadf4cbe5b309b0f78e3fe564d">cdk::calendar::getDate</a></div><div class="ttdeci">date getDate()</div><div class="ttdef"><b>Definition:</b> cdk.hpp:1039</div></div>
+<div class="ttc" id="aclasscdk_1_1calendar_html_a628a155e7aecc348861c56fbce245719"><div class="ttname"><a href="classcdk_1_1calendar.html#a628a155e7aecc348861c56fbce245719">cdk::calendar::getYearAttribute</a></div><div class="ttdeci">chtype getYearAttribute()</div><div class="ttdef"><b>Definition:</b> cdk.hpp:1084</div></div>
+<div class="ttc" id="aclasscdk_1_1calendar_html_a842fc08a89169e7ff2d9221b32416945"><div class="ttname"><a href="classcdk_1_1calendar.html#a842fc08a89169e7ff2d9221b32416945">cdk::calendar::inject</a></div><div class="ttdeci">time_t inject(chtype input)</div><div class="ttdoc">injects a single character into the widget.</div><div class="ttdef"><b>Definition:</b> cdk.hpp:1104</div></div>
+<div class="ttc" id="aclasscdk_1_1calendar_html_a9bbb949b3aa9dc8d28c7d8abc4392951"><div class="ttname"><a href="classcdk_1_1calendar.html#a9bbb949b3aa9dc8d28c7d8abc4392951">cdk::calendar::erase</a></div><div class="ttdeci">void erase()</div><div class="ttdoc">removes the widget from the screen. This does NOT destroy the widget.</div><div class="ttdef"><b>Definition:</b> cdk.hpp:1025</div></div>
+<div class="ttc" id="aclasscdk_1_1calendar_html_ae2258b63f72049cc886b5377e8ae4254"><div class="ttname"><a href="classcdk_1_1calendar.html#ae2258b63f72049cc886b5377e8ae4254">cdk::calendar::set</a></div><div class="ttdeci">void set(date d, date_attributes attr, chtype highlight, bool box)</div><div class="ttdoc">lets the programmer modify elements of an existing calendar widget.</div><div class="ttdef"><b>Definition:</b> cdk.hpp:1145</div></div>
+<div class="ttc" id="aclasscdk_1_1calendar_html_ae3252f9657c0abbbe21b188707edee0c"><div class="ttname"><a href="classcdk_1_1calendar.html#ae3252f9657c0abbbe21b188707edee0c">cdk::calendar::getBox</a></div><div class="ttdeci">bool getBox()</div><div class="ttdef"><b>Definition:</b> cdk.hpp:1032</div></div>
+<div class="ttc" id="aclasscdk_1_1calendar_html_ae40e9dd308509ded8a5408e16935cbe0"><div class="ttname"><a href="classcdk_1_1calendar.html#ae40e9dd308509ded8a5408e16935cbe0">cdk::calendar::removeMarker</a></div><div class="ttdeci">void removeMarker(date d)</div><div class="ttdoc">removes a marker from the calendar created with setMarker</div><div class="ttdef"><b>Definition:</b> cdk.hpp:1131</div></div>
+<div class="ttc" id="aclasscdk_1_1calendar_html_ae583537ecd89be03927d0e148eccf2e1"><div class="ttname"><a href="classcdk_1_1calendar.html#ae583537ecd89be03927d0e148eccf2e1">cdk::calendar::position</a></div><div class="ttdeci">void position()</div><div class="ttdoc">allows the user to move the widget around the screen via the cursor/keypad keys.</div><div class="ttdef"><b>Definition:</b> cdk.hpp:1123</div></div>
+<div class="ttc" id="aclasscdk_1_1calendar_html_ae6df540d75850a066e902fbe69ea4b40"><div class="ttname"><a href="classcdk_1_1calendar.html#ae6df540d75850a066e902fbe69ea4b40">cdk::calendar::getDayAttribute</a></div><div class="ttdeci">chtype getDayAttribute()</div><div class="ttdef"><b>Definition:</b> cdk.hpp:1051</div></div>
+<div class="ttc" id="aclasscdk_1_1calendar_html_afd86cbb74a54d87ca6ab3506c78348bf"><div class="ttname"><a href="classcdk_1_1calendar.html#afd86cbb74a54d87ca6ab3506c78348bf">cdk::calendar::getMarker</a></div><div class="ttdeci">chtype getMarker(date d)</div><div class="ttdef"><b>Definition:</b> cdk.hpp:1067</div></div>
 <div class="ttc" id="aclasscdk_1_1label_html"><div class="ttname"><a href="classcdk_1_1label.html">cdk::label</a></div><div class="ttdef"><b>Definition:</b> cdk.hpp:206</div></div>
 <div class="ttc" id="aclasscdk_1_1label_html_a082942dda9019156e9f6a3cfdd723617"><div class="ttname"><a href="classcdk_1_1label.html#a082942dda9019156e9f6a3cfdd723617">cdk::label::setBackgroundAttrib</a></div><div class="ttdeci">void setBackgroundAttrib(chtype attribute)</div><div class="ttdoc">Sets the background attribute of the widget.</div><div class="ttdef"><b>Definition:</b> cdk.hpp:310</div></div>
 <div class="ttc" id="aclasscdk_1_1label_html_a1ce3f4436efe4d82cb249e7783c09d07"><div class="ttname"><a href="classcdk_1_1label.html#a1ce3f4436efe4d82cb249e7783c09d07">cdk::label::label</a></div><div class="ttdeci">label()=default</div><div class="ttdoc">Default constructor. Creates an empty object, dont call member functions without assigning an initial...</div></div>
